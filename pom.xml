@@ -4,9 +4,9 @@
 
     <groupId>com.bitdecay</groupId>
     <!-- TODO -->
-    <artifactId>project-name</artifactId>
+    <artifactId>ludumdare39</artifactId>
     <version>1.0</version>
-    <name>project-name</name>
+    <name>Ludum Dare 39</name>
     <description>project description...</description>
 
     <packaging>jar</packaging>
