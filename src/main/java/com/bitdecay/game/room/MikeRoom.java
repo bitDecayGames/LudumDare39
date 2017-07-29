@@ -5,6 +5,7 @@ import com.bitdecay.game.gameobject.MyGameObjectFactory;
 import com.bitdecay.game.screen.GameScreen;
 import com.bitdecay.game.system.*;
 import com.bitdecay.game.system.physics.CollisionSystem;
+import com.bitdecay.game.system.physics.ManifoldResolutionSystem;
 import com.bitdecay.game.system.physics.VelocitySystem;
 
 /**
@@ -25,6 +26,7 @@ public class MikeRoom extends AbstractRoom {
         new DrawSystem(this);
         new RemovalSystem(this);
         new CollisionSystem(this);
+        new ManifoldResolutionSystem(this);
         new ScheduleSystem(this);
         new KeyboardMoveSystem(this);
         new KeyboardShootSystem(this);
@@ -34,9 +36,16 @@ public class MikeRoom extends AbstractRoom {
         new VelocitySystem(this);
 
 
-        gobs.add(MyGameObjectFactory.objectFromConf("D1", 0, 0));
-        gobs.add(MyGameObjectFactory.objectFromConf("D2", 100, 100));
-        gobs.add(MyGameObjectFactory.objectFromConf("D2", 120, 100));
+        gobs.add(MyGameObjectFactory.objectFromConf("D1", 0, -20));
+
+        for (int i = 0; i < 5; i++) {
+            for (int j = 0; j < 5; j++) {
+                gobs.add(MyGameObjectFactory.objectFromConf("D2", i, j));
+            }
+        }
+
+        gobs.add(MyGameObjectFactory.objectFromConf("leftBound", 0, 0));
+        gobs.add(MyGameObjectFactory.objectFromConf("northBound", 0, 0));
         gobs.add(MyGameObjectFactory.objectFromConf("D3", 0, 0));
 
         // this is required to be at the end here so that the systems have the latest gobs

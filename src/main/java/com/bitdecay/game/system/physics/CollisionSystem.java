@@ -1,7 +1,6 @@
 package com.bitdecay.game.system.physics;
 
 import com.bitdecay.game.component.CollisionComponent;
-import com.bitdecay.game.component.ManifoldComponent;
 import com.bitdecay.game.component.PositionComponent;
 import com.bitdecay.game.gameobject.MyGameObject;
 import com.bitdecay.game.physics.CollisionUtils;
@@ -40,7 +39,7 @@ public class CollisionSystem extends AbstractUpdatableSystem {
 
                 Manifold manifold = CollisionUtils.collide(outterCollider.body, outterPosition.toVector2(), innerCollider.body, innerPosition.toVector2());
                 if (manifold != null) {
-                    gobOutter.addComponent(new ManifoldComponent(manifold));
+                    outterCollider.manifolds.add(manifold);
                 }
             });
         });

@@ -1,6 +1,7 @@
 package com.bitdecay.game.physics;
 
 import com.badlogic.gdx.math.Circle;
+import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Shape2D;
 import com.badlogic.gdx.math.Vector2;
 
@@ -27,9 +28,23 @@ public class CollisionUtils {
                 float overlap =  refCenter.cpy().sub(otherCenter).len() - (refCircle.radius + otherCircle.radius);
                 if (overlap < 0) {
                     // we have overlapped
-                    float angle = otherCenter.cpy().sub(refCenter).angle();
-                    return new Manifold(overlap, angle);
+                    float  angle = otherCenter.cpy().sub(refCenter).angle();
+                    return new Manifold(overlap*.05f, angle);
                 }
+            }
+        } else if (reference instanceof Circle && other instanceof Line) {
+            Circle refCircle = (Circle) reference;
+            refCircle = new Circle(refCircle);
+            refCircle.x = refPos.x;
+            refCircle.y = refPos.y;
+
+            Line otherLine = (Line) other;
+
+            Vector2 direction = new Vector2();
+            float amount = Intersector.intersectSegmentCircleDisplace(otherLine.start, otherLine.end, new Vector2(refCircle.x, refCircle.y), refCircle.radius, direction);
+            if (amount != Float.POSITIVE_INFINITY) {
+//                direction.scl(-1); // the direction is original the amount the LINE has to move. We wan't to move the circle.
+                return new Manifold(refCircle.radius - amount, direction.angle());
             }
         }
         return null;
