@@ -1,12 +1,12 @@
 package com.bitdecay.game.system;
 
 import com.badlogic.gdx.Input;
-import com.bitdecay.game.component.PositionComponent;
-import com.bitdecay.game.gameobject.MyGameObject;
-import com.bitdecay.game.system.abstracted.AbstractUpdatableSystem;
-import com.bitdecay.game.room.AbstractRoom;
 import com.bitdecay.game.component.PlayerInputComponent;
 import com.bitdecay.game.component.SpeedComponent;
+import com.bitdecay.game.component.VelocityComponent;
+import com.bitdecay.game.gameobject.MyGameObject;
+import com.bitdecay.game.room.AbstractRoom;
+import com.bitdecay.game.system.abstracted.AbstractUpdatableSystem;
 import com.bitdecay.game.util.InputHelper;
 
 /**
@@ -21,13 +21,13 @@ public class KeyboardMoveSystem extends AbstractUpdatableSystem {
         int desiredMoveX = 0;
 
         if (InputHelper.isKeyPressed(Input.Keys.W)) {
-            desiredMoveY = -1;
+            desiredMoveY = 1;
         }
         if (InputHelper.isKeyPressed(Input.Keys.A)) {
             desiredMoveX = -1;
         }
         if (InputHelper.isKeyPressed(Input.Keys.S)) {
-            desiredMoveY = 1;
+            desiredMoveY = -1;
         }
         if (InputHelper.isKeyPressed(Input.Keys.D)) {
             desiredMoveX = 1;
@@ -36,18 +36,14 @@ public class KeyboardMoveSystem extends AbstractUpdatableSystem {
         final int finalDesiredMoveX = desiredMoveX;
         final int finalDesiredMoveY = desiredMoveY;
 
-        gobs.forEach(gob -> gob.forEachComponentDo(PlayerInputComponent.class, pi ->
-            gob.forEachComponentDo(PositionComponent.class, pos ->
-                gob.forEachComponentDo(SpeedComponent.class, speed -> {
-                    pos.x += speed.x * finalDesiredMoveX * delta;
-                    pos.y += speed.y * finalDesiredMoveY * delta;
-                }))
-            )
-        );
+        gobs.forEach(gob -> gob.forEach(VelocityComponent.class, velocity -> gob.forEach(SpeedComponent.class, speed -> {
+            velocity.x = speed.speed * finalDesiredMoveX;
+            velocity.y = speed.speed * finalDesiredMoveY;
+        })));
     }
 
     @Override
     protected boolean validateGob(MyGameObject gob) {
-        return gob.hasComponents(PlayerInputComponent.class);
+        return gob.hasComponents(PlayerInputComponent.class, VelocityComponent.class, SpeedComponent.class);
     }
 }

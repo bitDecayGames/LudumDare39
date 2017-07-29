@@ -44,7 +44,7 @@ public final class MyGameObjectFromConf {
                 try {
                     Constructor<? extends AbstractComponent> componentConstructorWithConf = componentClass.getConstructor(Config.class);
                     obj.addComponent(componentConstructorWithConf.newInstance(componentConf));
-                }  catch (NoSuchMethodException a) {
+                }  catch (Exception a) {
                     try {
                         Constructor<? extends AbstractComponent> componentConstructor = componentClass.getConstructor();
                         obj.addComponent(componentConstructor.newInstance());
