@@ -1,5 +1,6 @@
 package com.bitdecay.game.component;
 
+import com.typesafe.config.Config;
 import com.badlogic.gdx.math.Vector2;
 
 public class ShootComponent extends AbstractComponent {
