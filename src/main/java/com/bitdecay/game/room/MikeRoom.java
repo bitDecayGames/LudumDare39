@@ -24,10 +24,12 @@ public class MikeRoom extends AbstractRoom {
         new DrawSystem(this);
         new RemovalSystem(this);
         new CollisionSystem(this);
+        new ScheduleSystem(this);
 
 
         gobs.add(MyGameObjectFactory.objectFromConf("D1", 0, 0));
         gobs.add(MyGameObjectFactory.objectFromConf("D2", 100, 100));
+        gobs.add(MyGameObjectFactory.objectFromConf("D3", 0, 0));
 
         // this is required to be at the end here so that the systems have the latest gobs
         systemManager.cleanup();
