@@ -14,11 +14,6 @@ public class ShootComponent extends AbstractComponent {
 
     public ShootComponent(){ }
 
-    public ShootComponent(Config config) {
-        this.x = (float) config.getDouble("x");
-        this.y = (float) config.getDouble("y");
-    }
-
     /**
      * Immutable
      * @return new Vector2
