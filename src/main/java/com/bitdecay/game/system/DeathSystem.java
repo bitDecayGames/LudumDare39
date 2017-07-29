@@ -1,10 +1,13 @@
 package com.bitdecay.game.system;
 
+import com.bitdecay.game.Launcher;
 import com.bitdecay.game.component.DeadComponent;
 import com.bitdecay.game.component.HealthComponent;
+import com.bitdecay.game.component.PlayerInputComponent;
 import com.bitdecay.game.component.RemoveNowComponent;
 import com.bitdecay.game.gameobject.MyGameObject;
 import com.bitdecay.game.room.AbstractRoom;
+import com.bitdecay.game.screen.GameOverScreen;
 import com.bitdecay.game.system.abstracted.AbstractForEachUpdatableSystem;
 
 public class DeathSystem extends AbstractForEachUpdatableSystem {
@@ -23,6 +26,8 @@ public class DeathSystem extends AbstractForEachUpdatableSystem {
             if (health.hp <= 0) {
                 gob.addComponent(RemoveNowComponent.class);
                 gob.addComponent(new DeadComponent());
+
+                gob.forEach(PlayerInputComponent.class, player -> room.setScreen(new GameOverScreen(Launcher.GAME)));
             }
         });
     }

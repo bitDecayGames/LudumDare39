@@ -20,6 +20,7 @@ public class GameScreen implements Screen, IHasScreenSize, ICanSetScreen, ICanSe
     private MyGame game;
 
     private com.bitdecay.game.room.AbstractRoom room;
+    private Screen queuedScreen = null;
 
     public GameScreen(MyGame game){
         this.game = game;
@@ -40,6 +41,7 @@ public class GameScreen implements Screen, IHasScreenSize, ICanSetScreen, ICanSe
         Gdx.gl.glClearColor(0.1f, 0.1f, 0.1f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         if (room != null) room.render(delta);
+        if (queuedScreen != null) actuallySetScreen();
     }
 
     @Override
@@ -68,7 +70,11 @@ public class GameScreen implements Screen, IHasScreenSize, ICanSetScreen, ICanSe
 
     @Override
     public void setScreen(Screen screen) {
-        game.setScreen(screen);
+        queuedScreen = screen;
+    }
+
+    private void actuallySetScreen(){
+        game.setScreen(queuedScreen);
     }
 
     @Override
