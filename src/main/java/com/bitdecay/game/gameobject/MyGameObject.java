@@ -59,10 +59,10 @@ public class MyGameObject implements ICleanup {
      */
     public <T extends AbstractComponent> MyGameObject addComponent(Class<T> clazz){
         try {
-            Constructor<T> constructor = clazz.getConstructor(MyGameObject.class);
-            return addComponent(constructor.newInstance(this));
+            Constructor<T> constructor = clazz.getConstructor();
+            return addComponent(constructor.newInstance());
         } catch (Exception e){
-            throw new RuntimeException("Expected there to be a constructor with just a MyGameObject", e);
+            throw new RuntimeException("Expected there to be an empty constructor.", e);
         }
     }
 
@@ -76,6 +76,17 @@ public class MyGameObject implements ICleanup {
             dirty = true;
         }
         return comp;
+    }
+
+    /**
+     * This method does not actually remove the component.  It just marks the component as one to be removed before the next cycle.
+     */
+    public boolean removeComponent(AbstractComponent component){
+        if (components.contains(component)) {
+            componentsToRemove.add(component);
+            dirty = true;
+            return true;
+        } else return false;
     }
 
     @Override
