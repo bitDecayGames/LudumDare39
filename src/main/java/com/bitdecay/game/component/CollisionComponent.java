@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 public class CollisionComponent extends AbstractComponent {
     public Shape2D body;
@@ -32,12 +31,8 @@ public class CollisionComponent extends AbstractComponent {
         }
     }
 
-    private static Set<CollisionSystem.CollisionGroup> stringListToCollisionGroups(List<String> list){
-        return list.stream().map(CollisionSystem.CollisionGroup::valueOf).collect(Collectors.toSet());
-    }
-
     public CollisionComponent(Config conf) {
-        this(getShapeFromConfig(conf), stringListToCollisionGroups(conf.getStringList("isPartOfGroups")), stringListToCollisionGroups(conf.getStringList("collidesWith")));
+        this(getShapeFromConfig(conf), CollisionSystem.collisionGroupsFromStringList(conf.getStringList("isPartOfGroups")), CollisionSystem.collisionGroupsFromStringList(conf.getStringList("collidesWith")));
     }
 
 

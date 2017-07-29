@@ -16,6 +16,7 @@ public class Launcher {
 
     private static final Logger log = Logger.getLogger(Launcher.class);
     public static Config conf = ConfigFactory.load("conf/application.conf");
+    public static MyGame GAME = null;
 
     public static void main(String[] args) {
         BasicConfigurator.configure();
@@ -34,7 +35,8 @@ public class Launcher {
         log.info("Run Mode: " + runMode);
         if (runMode == RunMode.DEV) TexturePackerUtils.pack();
 
-        new LwjglApplication(new MyGame(runMode), config);
+        GAME = new MyGame(runMode);
+        new LwjglApplication(GAME, config);
     }
 
     private static boolean arg(String[] args, String arg){

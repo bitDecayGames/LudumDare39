@@ -2,6 +2,8 @@ package com.bitdecay.game.system;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
+import com.bitdecay.game.component.ArtOffsetComponent;
 import com.bitdecay.game.component.DrawableComponent;
 import com.bitdecay.game.component.PositionComponent;
 import com.bitdecay.game.component.SizeComponent;
@@ -27,8 +29,10 @@ public class DrawSystem extends AbstractDrawableSystem {
         gobs.forEach(gob ->
                 gob.forEach(DrawableComponent.class, drawable ->
                         gob.forEach(PositionComponent.class, pos ->
-                                gob.forEach(SizeComponent.class, size ->
-                                        spriteBatch.draw(drawable.image(), pos.x, pos.y, size.w, size.h)))));
+                                gob.forEach(SizeComponent.class, size -> {
+                                    Vector2 offset = gob.getComponent(ArtOffsetComponent.class).map(ArtOffsetComponent::toVector2).orElseGet(()->new Vector2(0, 0));
+                                    spriteBatch.draw(drawable.image(), pos.x + offset.x, pos.y + offset.y, size.w, size.h);
+                                }))));
         spriteBatch.end();
     }
 }

@@ -1,18 +1,20 @@
 package com.bitdecay.game.component;
 
-import com.typesafe.config.Config;
 import com.badlogic.gdx.math.Vector2;
+import com.typesafe.config.Config;
 
-public class ShootComponent extends AbstractComponent {
+public class ArtOffsetComponent extends AbstractComponent {
     public float x = 0;
     public float y = 0;
 
-    public ShootComponent(float x, float y){
+    public ArtOffsetComponent(Config conf) {
+        this((float) conf.getDouble("x"), (float) conf.getDouble("y"));
+    }
+
+    public ArtOffsetComponent(float x, float y){
         this.x = x;
         this.y = y;
     }
-
-    public ShootComponent(){ }
 
     /**
      * Immutable
