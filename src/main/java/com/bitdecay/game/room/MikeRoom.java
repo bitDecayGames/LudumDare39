@@ -2,6 +2,7 @@ package com.bitdecay.game.room;
 
 
 import com.bitdecay.game.gameobject.MyGameObjectFactory;
+import com.bitdecay.game.gameobject.MyGameObjectFromConf;
 import com.bitdecay.game.screen.GameScreen;
 import com.bitdecay.game.system.*;
 import com.bitdecay.game.system.physics.CollisionSystem;
@@ -34,9 +35,16 @@ public class MikeRoom extends AbstractRoom {
         new DamageSystem(this);
         new DeathSystem(this);
         new VelocitySystem(this);
+        new FloorLoadSystem(this);
+        new ChangeFloorsSystem(this);
 
 
-        gobs.add(MyGameObjectFactory.objectFromConf("DemoSchedule", 0, 0));
+        gobs.add(MyGameObjectFromConf.objectFromConf("NorthBoundary", 0, 0));
+        gobs.add(MyGameObjectFromConf.objectFromConf("WestBoundary", 0, 0));
+        gobs.add(MyGameObjectFromConf.objectFromConf("SouthBoundary", 0, 0));
+        gobs.add(MyGameObjectFromConf.objectFromConf("EastBoundary", 0, 0));
+        gobs.add(MyGameObjectFactory.objectFromConf("Player", 0, 0));
+        gobs.add(MyGameObjectFactory.objectFromConf("floor10", 0, 0));
         // this is required to be at the end here so that the systems have the latest gobs
         systemManager.cleanup();
     }
