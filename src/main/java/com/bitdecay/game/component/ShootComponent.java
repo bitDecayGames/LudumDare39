@@ -1,5 +1,6 @@
 package com.bitdecay.game.component;
 
+import com.typesafe.config.Config;
 import com.badlogic.gdx.math.Vector2;
 
 public class ShootComponent extends AbstractComponent {
@@ -12,6 +13,11 @@ public class ShootComponent extends AbstractComponent {
     }
 
     public ShootComponent(){ }
+
+    public ShootComponent(Config config) {
+        this.x = (float) config.getDouble("x");
+        this.y = (float) config.getDouble("y");
+    }
 
     /**
      * Immutable
