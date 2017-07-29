@@ -36,18 +36,7 @@ public class MikeRoom extends AbstractRoom {
         new VelocitySystem(this);
 
 
-        gobs.add(MyGameObjectFactory.objectFromConf("D1", 0, -20));
-
-        for (int i = 0; i < 5; i++) {
-            for (int j = 0; j < 5; j++) {
-                gobs.add(MyGameObjectFactory.objectFromConf("D2", i, j));
-            }
-        }
-
-        gobs.add(MyGameObjectFactory.objectFromConf("leftBound", 0, 0));
-        gobs.add(MyGameObjectFactory.objectFromConf("northBound", 0, 0));
         gobs.add(MyGameObjectFactory.objectFromConf("DemoSchedule", 0, 0));
-
         // this is required to be at the end here so that the systems have the latest gobs
         systemManager.cleanup();
     }
