@@ -7,6 +7,8 @@ import com.badlogic.gdx.math.Vector2;
 
 public class CollisionUtils {
 
+    private static final float resolutionRatio = 0.1f;
+
     // returns null if the shapes do not collide.
     // returns a Manifold from the aspect of 'reference'
     public static Manifold collide(Shape2D reference, Vector2 refPos, Shape2D other, Vector2 otherPos) {
@@ -29,7 +31,7 @@ public class CollisionUtils {
                 if (overlap < 0) {
                     // we have overlapped
                     float  angle = otherCenter.cpy().sub(refCenter).angle();
-                    return new Manifold(overlap*.05f, angle);
+                    return new Manifold(overlap*resolutionRatio, angle);
                 }
             }
         } else if (reference instanceof Circle && other instanceof Line) {
