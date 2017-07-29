@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 
 public class ScheduleComponent extends AbstractComponent {
     public List<AbstractTask> taskList;
+    public boolean isComplete = false;
 
     public ScheduleComponent(List<AbstractTask> taskList){ this.taskList = taskList; }
 

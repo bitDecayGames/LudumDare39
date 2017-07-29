@@ -10,6 +10,8 @@ public class TaskFactory {
         switch (name){
             case "SimpleSpawn":
                 return new SimpleSpawnTask(conf);
+            case "SpawnAndDie":
+                return new SpawnAndDieTask(conf);
             case "MultiSpawn":
                 return new MultiSpawnTask(conf);
             case "BoundarySetup":
