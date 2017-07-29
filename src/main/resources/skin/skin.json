@@ -7,13 +7,13 @@
   },
   "com.badlogic.gdx.graphics.g2d.BitmapFont": {
     "defaultFont": {
-      "file": "font/bit.fnt"
+      "file": "font/blocks.fnt"
     }
   },
   "com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle": {
     "default": {
       "font": "defaultFont",
-      "fontColor": "white"
+      "fontColor": "white",
     }
   }
 }
