@@ -10,7 +10,7 @@ public class SimpleSpawnTask extends AbstractTask {
     private float x;
     private float y;
 
-    public SimpleSpawnTask(Config conf){
+    public SimpleSpawnTask(Config conf) {
         timeToWait = (float) conf.getDouble("time");
         gameObjectNameToSpawn = conf.getString("gob");
         x = (float) conf.getDouble("x");
@@ -19,6 +19,7 @@ public class SimpleSpawnTask extends AbstractTask {
 
     @Override
     public void start(AbstractRoom room) {
+        super.start(room);
         room.getGameObjects().add(MyGameObjectFromConf.objectFromConf(gameObjectNameToSpawn, x, y));
     }
 
