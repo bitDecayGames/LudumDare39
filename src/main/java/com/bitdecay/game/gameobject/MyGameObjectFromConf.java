@@ -5,6 +5,7 @@ import com.bitdecay.game.component.AbstractComponent;
 import com.bitdecay.game.component.NameComponent;
 import com.bitdecay.game.component.PositionComponent;
 import com.typesafe.config.Config;
+import org.apache.log4j.Logger;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -16,6 +17,7 @@ import java.util.stream.Collectors;
  */
 public final class MyGameObjectFromConf {
 
+    private static Logger log = Logger.getLogger(MyGameObjectFactory.class);
     private static Config gobsConf = Launcher.conf.getConfig("gobs");
     private static List<Config> defaultConf = gobsConf.getConfigList("default").stream().map(Config.class::cast).collect(Collectors.toList());
     private static List<Config> listConf = gobsConf.getConfigList("list").stream().map(Config.class::cast).collect(Collectors.toList());
@@ -64,6 +66,7 @@ public final class MyGameObjectFromConf {
             }
         });
         obj.cleanup();
+        //log.info("Create object from conf: " + obj);
         return obj;
     }
 
@@ -81,7 +84,7 @@ public final class MyGameObjectFromConf {
         return confOpt.map(conf -> {
             List<Config> components = conf.getConfigList("components").stream().map(Config.class::cast).collect(Collectors.toList());
             if (conf.hasPath("extends")) {
-                List<String> extNames = Arrays.stream(conf.getString("extends").split(",")).map(String::trim).collect(Collectors.toList());
+                List<String> extNames = conf.getStringList("extends");
                 extNames.forEach(extName -> doExtend(components, componentConfigListForConfigRecursive(configForObjectName(extName))));
             }
             return components;
@@ -92,8 +95,10 @@ public final class MyGameObjectFromConf {
         List<String> componentNames = original.stream().map(config -> config.getString("name")).collect(Collectors.toList());
         extended.forEach(extendedConf -> {
             String extendedName = extendedConf.getString("name");
+            boolean allowMultiple = false;
+            if (extendedConf.hasPath("allowMultiple")) allowMultiple = extendedConf.getBoolean("allowMultiple");
             // do not overwrite with extended values
-            if (!componentNames.contains(extendedName)) original.add(extendedConf);
+            if (!componentNames.contains(extendedName) || allowMultiple) original.add(extendedConf);
         });
     }
 
