@@ -49,7 +49,7 @@ public final class MyGameObjectFromConf {
                         Constructor<? extends AbstractComponent> componentConstructor = componentClass.getConstructor();
                         obj.addComponent(componentConstructor.newInstance());
                     } catch (NoSuchMethodException b) {
-                        err("Could not construct component with name: " + className + " (Tip: look in the component class, there must be a constructor that takes only a MyGameObject, or a constructor that takes a MyGameObject and a Config)");
+                        err("Could not construct component with name: " + className + " (Tip: look in the component class, there must be a constructor that takes only a Config or an empty constructor)");
                     }
                 }
             } catch (ClassNotFoundException e) {
