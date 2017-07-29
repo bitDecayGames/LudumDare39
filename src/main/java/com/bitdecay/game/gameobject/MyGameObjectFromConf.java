@@ -52,15 +52,15 @@ public final class MyGameObjectFromConf {
                         Constructor<? extends AbstractComponent> componentConstructor = componentClass.getConstructor();
                         obj.addComponent(componentConstructor.newInstance());
                     } catch (NoSuchMethodException b) {
-                        err("Could not construct component with name: " + className + " (Tip: look in the component class, there must be a constructor that takes only a Config or an empty constructor)", b);
+                        err("Could not construct component with name: " + className + " for object " + name + " (Tip: look in the component class, there must be a constructor that takes only a Config or an empty constructor)", b);
                     }
                 }
             } catch (ClassNotFoundException e) {
-                err("Could not find class with name: " + className);
+                err("Could not find class with name: " + className + " for object " + name);
             } catch (InvocationTargetException e){
-                err("There was a problem creating " + className + " (Tip: your conf file is probably missing a key:value or the key is misspelled)", e.getCause());
+                err("There was a problem creating " + className + " for object " + name + " (Tip: your conf file is probably missing a key:value or the key is misspelled)", e.getCause());
             } catch (Exception e){
-                err("General exception", e);
+                err("General exception creating " + className + " for object " + name, e);
             }
         });
         obj.cleanup();
