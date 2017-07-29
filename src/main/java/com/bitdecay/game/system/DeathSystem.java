@@ -1,5 +1,6 @@
 package com.bitdecay.game.system;
 
+import com.bitdecay.game.component.DeadComponent;
 import com.bitdecay.game.component.HealthComponent;
 import com.bitdecay.game.component.RemoveNowComponent;
 import com.bitdecay.game.gameobject.MyGameObject;
@@ -19,7 +20,10 @@ public class DeathSystem extends AbstractForEachUpdatableSystem {
     @Override
     protected void forEach(float delta, MyGameObject gob) {
         gob.forEach(HealthComponent.class, health -> {
-            if (health.hp <= 0) gob.addComponent(RemoveNowComponent.class);
+            if (health.hp <= 0) {
+                gob.addComponent(RemoveNowComponent.class);
+                gob.addComponent(new DeadComponent());
+            }
         });
     }
 }
