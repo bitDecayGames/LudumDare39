@@ -37,6 +37,7 @@ public class MikeRoom extends AbstractRoom {
         new VelocitySystem(this);
         new FloorLoadSystem(this);
         new ChangeFloorsSystem(this);
+        new CharacterAnimationSystem(this);
 
 
         gobs.add(MyGameObjectFromConf.objectFromConf("NorthBoundary", 0, 0));
