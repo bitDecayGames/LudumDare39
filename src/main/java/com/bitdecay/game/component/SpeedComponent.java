@@ -1,29 +1,15 @@
 package com.bitdecay.game.component;
 
-import com.badlogic.gdx.math.Vector2;
 import com.typesafe.config.Config;
 
 public class SpeedComponent extends AbstractComponent {
-    public float x = 0;
-    public float y = 0;
+    public float speed = 0;
 
-    public SpeedComponent(float x, float y){
-        this.x = x;
-        this.y = y;
+    public SpeedComponent(float speed){
+        this.speed = speed;
     }
 
     public SpeedComponent(Config conf){
-        x = (float) conf.getDouble("x");
-        y = (float) conf.getDouble("y");
+        speed = (float) conf.getDouble("speed");
     }
-
-    /**
-     * Immutable
-     * @return new Vector2
-     */
-    public Vector2 toVector2(){
-        return new Vector2(x, y);
-    }
-
-
 }

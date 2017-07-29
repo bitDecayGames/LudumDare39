@@ -5,6 +5,7 @@ import com.bitdecay.game.gameobject.MyGameObjectFactory;
 import com.bitdecay.game.screen.GameScreen;
 import com.bitdecay.game.system.*;
 import com.bitdecay.game.system.physics.CollisionSystem;
+import com.bitdecay.game.system.physics.VelocitySystem;
 
 /**
  * The demo room is just a super simple example of how to add systems and game objects to a room.
@@ -26,6 +27,11 @@ public class MikeRoom extends AbstractRoom {
         new CollisionSystem(this);
         new ScheduleSystem(this);
         new KeyboardMoveSystem(this);
+        new KeyboardShootSystem(this);
+        new ShootSystem(this);
+        new DamageSystem(this);
+        new DeathSystem(this);
+        new VelocitySystem(this);
 
 
         gobs.add(MyGameObjectFactory.objectFromConf("D1", 0, 0));
