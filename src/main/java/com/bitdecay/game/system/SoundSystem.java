@@ -47,8 +47,8 @@ public class SoundSystem extends AbstractForEachUpdatableSystem implements IEven
         public String music = null;
         public SoundEventer(String name, String fx, String music){
             this.name = name;
-            if (SoundLibrary.hasSound(fx)) this.fx = fx;
-            if (SoundLibrary.hasMusic(music)) this.music = music;
+            if (fx != null && SoundLibrary.hasSound(fx)) this.fx = fx;
+            if (music != null && SoundLibrary.hasMusic(music)) this.music = music;
         }
         public void play(){
             //log.info("Play sound: " + fx + " or " + music);
