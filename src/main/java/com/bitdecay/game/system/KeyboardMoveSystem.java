@@ -39,8 +39,8 @@ public class KeyboardMoveSystem extends AbstractUpdatableSystem {
         gobs.forEach(gob -> gob.forEachComponentDo(PlayerInputComponent.class, pi ->
             gob.forEachComponentDo(PositionComponent.class, pos ->
                 gob.forEachComponentDo(SpeedComponent.class, speed -> {
-                    pos.x += speed.x * finalDesiredMoveX;
-                    pos.y += speed.y * finalDesiredMoveY;
+                    pos.x += speed.x * finalDesiredMoveX * delta;
+                    pos.y += speed.y * finalDesiredMoveY * delta;
                 }))
             )
         );
