@@ -10,6 +10,10 @@ public class TaskFactory {
         switch (name){
             case "SimpleSpawn":
                 return new SimpleSpawnTask(conf);
+            case "MultiSpawn":
+                return new MultiSpawnTask(conf);
+            case "BoundarySetup":
+                return new BoundarySetupTask(conf);
             default:
                 throw new RuntimeException("Could not find Task named: " + name);
         }

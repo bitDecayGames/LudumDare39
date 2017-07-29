@@ -20,13 +20,13 @@ public class KeyboardShootSystem extends AbstractUpdatableSystem {
         int desiredShootX = 0;
 
         if (InputHelper.isKeyPressed(Input.Keys.UP)) {
-            desiredShootY = -1;
+            desiredShootY = 1;
         }
         if (InputHelper.isKeyPressed(Input.Keys.LEFT)) {
             desiredShootX = -1;
         }
         if (InputHelper.isKeyPressed(Input.Keys.DOWN)) {
-            desiredShootY = 1;
+            desiredShootY = -1;
         }
         if (InputHelper.isKeyPressed(Input.Keys.RIGHT)) {
             desiredShootX = 1;
