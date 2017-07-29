@@ -7,6 +7,10 @@ import com.bitdecay.game.physics.Manifold;
 import com.bitdecay.game.room.AbstractRoom;
 import com.bitdecay.game.system.abstracted.AbstractUpdatableSystem;
 
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
+
 /**
  * Created by Monday on 7/28/2017.
  */
@@ -40,8 +44,12 @@ public class CollisionSystem extends AbstractUpdatableSystem {
                 Manifold manifold = CollisionUtils.collide(outterCollider.body, outterPosition.toVector2(), innerCollider.body, innerPosition.toVector2());
                 if (manifold != null) {
                     outterCollider.manifolds.add(manifold);
-                    if (gobOutter.hasComponent(DamagerComponent.class) && gobInner.hasComponent(HealthComponent.class)) gobOutter.forEach(DamagerComponent.class, dmg -> gobInner.addComponent(new DamageComponent(dmg.damage)));
-                    else if (gobInner.hasComponent(DamagerComponent.class) && gobOutter.hasComponent(HealthComponent.class)) gobInner.forEach(DamagerComponent.class, dmg -> gobOutter.addComponent(new DamageComponent(dmg.damage)));
+                    if (gobOutter.hasComponent(DamagerComponent.class) && gobInner.hasComponent(HealthComponent.class)) gobOutter.forEach(DamagerComponent.class, dmg -> {
+                        if (dmg.targetGroups.size() == 0 || innerCollider.isPartOfGroups.stream().anyMatch(dmg.targetGroups::contains)) gobInner.addComponent(new DamageComponent(dmg.damage));
+                    });
+                    else if (gobInner.hasComponent(DamagerComponent.class) && gobOutter.hasComponent(HealthComponent.class)) gobInner.forEach(DamagerComponent.class, dmg -> {
+                        if (dmg.targetGroups.size() == 0 || outterCollider.isPartOfGroups.stream().anyMatch(dmg.targetGroups::contains)) gobOutter.addComponent(new DamageComponent(dmg.damage));
+                    });
                 }
             });
         });
@@ -53,5 +61,9 @@ public class CollisionSystem extends AbstractUpdatableSystem {
         PLAYER_BULLET,
         ENEMY_BULLET,
         WALL
+    }
+
+    public static Set<CollisionGroup> collisionGroupsFromStringList(List<String> groups){
+        return groups.stream().map(CollisionSystem.CollisionGroup::valueOf).collect(Collectors.toSet());
     }
 }
