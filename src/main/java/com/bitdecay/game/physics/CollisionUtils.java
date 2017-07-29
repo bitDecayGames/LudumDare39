@@ -24,9 +24,11 @@ public class CollisionUtils {
                 if (overlap < 0) {
                     // we have overlapped
                     float angle = otherCenter.cpy().sub(refCenter).angle();
-                    return new Manifold(overlap, angle);
+                    return new Manifold(overlap*.1f, angle);
                 }
             }
+        } else if (reference instanceof Circle && other instanceof Line) {
+            
         }
         return null;
     }
