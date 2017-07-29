@@ -46,7 +46,7 @@ public class MikeRoom extends AbstractRoom {
 
         gobs.add(MyGameObjectFactory.objectFromConf("leftBound", 0, 0));
         gobs.add(MyGameObjectFactory.objectFromConf("northBound", 0, 0));
-        gobs.add(MyGameObjectFactory.objectFromConf("D3", 0, 0));
+        gobs.add(MyGameObjectFactory.objectFromConf("DemoSchedule", 0, 0));
 
         // this is required to be at the end here so that the systems have the latest gobs
         systemManager.cleanup();
