@@ -3,6 +3,7 @@ package com.bitdecay.game.component;
 import com.badlogic.gdx.math.Vector2;
 import com.bitdecay.game.room.AbstractRoom;
 import com.bitdecay.game.trait.IInitializable;
+import com.typesafe.config.Config;
 
 /**
  * The component in charge of tracking the x and y position of the respawn point of the object.
@@ -20,6 +21,11 @@ public class RespawnableComponent extends AbstractComponent implements IInitiali
     private RespawnableComponent(PositionComponent pos){
         x = pos.x;
         y = pos.y;
+    }
+
+
+    public RespawnableComponent(Config conf) {
+        this((float) conf.getDouble("x"), (float) conf.getDouble("y"));
     }
 
     /**
