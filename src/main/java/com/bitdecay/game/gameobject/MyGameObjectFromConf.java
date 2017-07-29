@@ -8,10 +8,7 @@ import com.typesafe.config.Config;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -22,6 +19,12 @@ public final class MyGameObjectFromConf {
     private static Config gobsConf = Launcher.conf.getConfig("gobs");
     private static List<Config> defaultConf = gobsConf.getConfigList("default").stream().map(Config.class::cast).collect(Collectors.toList());
     private static List<Config> listConf = gobsConf.getConfigList("list").stream().map(Config.class::cast).collect(Collectors.toList());
+    static {
+        List<Config> extendedConfs = gobsConf.getConfigList("external").stream().map(Config.class::cast).collect(Collectors.toList());
+        List<Config> extendedLists = new ArrayList<>();
+        extendedConfs.forEach(conf -> extendedLists.addAll(conf.getConfigList("list")));
+        listConf.addAll(extendedLists);
+    }
 
     private MyGameObjectFromConf(){}
 
@@ -44,12 +47,12 @@ public final class MyGameObjectFromConf {
                 try {
                     Constructor<? extends AbstractComponent> componentConstructorWithConf = componentClass.getConstructor(Config.class);
                     obj.addComponent(componentConstructorWithConf.newInstance(componentConf));
-                }  catch (Exception a) {
+                }  catch (NoSuchMethodException a) {
                     try {
                         Constructor<? extends AbstractComponent> componentConstructor = componentClass.getConstructor();
                         obj.addComponent(componentConstructor.newInstance());
                     } catch (NoSuchMethodException b) {
-                        err("Could not construct component with name: " + className + " (Tip: look in the component class, there must be a constructor that takes only a Config or an empty constructor)");
+                        err("Could not construct component with name: " + className + " (Tip: look in the component class, there must be a constructor that takes only a Config or an empty constructor)", b);
                     }
                 }
             } catch (ClassNotFoundException e) {
@@ -77,7 +80,10 @@ public final class MyGameObjectFromConf {
     private static List<Config> componentConfigListForConfigRecursive(Optional<Config> confOpt){
         return confOpt.map(conf -> {
             List<Config> components = conf.getConfigList("components").stream().map(Config.class::cast).collect(Collectors.toList());
-            if (conf.hasPath("extends")) doExtend(components, componentConfigListForConfigRecursive(configForObjectName(conf.getString("extends"))));
+            if (conf.hasPath("extends")) {
+                List<String> extNames = Arrays.stream(conf.getString("extends").split(",")).map(String::trim).collect(Collectors.toList());
+                extNames.forEach(extName -> doExtend(components, componentConfigListForConfigRecursive(configForObjectName(extName))));
+            }
             return components;
         }).orElse(Collections.emptyList());
     }
