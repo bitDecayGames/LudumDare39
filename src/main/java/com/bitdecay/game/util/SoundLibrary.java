@@ -50,6 +50,10 @@ public class SoundLibrary {
         });
     }
 
+    public static synchronized boolean hasSound(String name){
+        return sounds.containsKey(name);
+    }
+
     public static synchronized Sound playSound(String name) {
         return getSound(name).play();
     }
@@ -72,6 +76,10 @@ public class SoundLibrary {
         } catch (Exception e){
             throw new RuntimeException("Could not get sound: " + name, e);
         }
+    }
+
+    public static synchronized boolean hasMusic(String name){
+        return musics.containsKey(name);
     }
 
     public static synchronized Music playMusic(String name) {
