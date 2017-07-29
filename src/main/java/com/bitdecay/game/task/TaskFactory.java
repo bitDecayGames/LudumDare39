@@ -14,6 +14,8 @@ public class TaskFactory {
                 return new MultiSpawnTask(conf);
             case "BoundarySetup":
                 return new BoundarySetupTask(conf);
+            case "Sequence":
+                return new TaskSequence(conf);
             default:
                 throw new RuntimeException("Could not find Task named: " + name);
         }
