@@ -41,11 +41,11 @@ public class ComboSystem extends AbstractUpdatableSystem implements IEventListen
 
             Vector2 pos = ((PlayerKillEvent) event).position.cpy();
             switch (currentCombo){
-                case 100: EventReactor.fireDelayedEvent(0, new Combo1PopupEvent(pos)); break;
-                case 200: EventReactor.fireDelayedEvent(0, new Combo2PopupEvent(pos)); break;
-                case 300: EventReactor.fireDelayedEvent(0, new Combo3PopupEvent(pos)); break;
-                case 400: EventReactor.fireDelayedEvent(0, new Combo4PopupEvent(pos)); break;
-                case 500: EventReactor.fireDelayedEvent(0, new Combo5PopupEvent(pos)); break;
+                case 50: EventReactor.fireDelayedEvent(0, new Combo1PopupEvent(pos)); break;
+                case 100: EventReactor.fireDelayedEvent(0, new Combo2PopupEvent(pos)); break;
+                case 150: EventReactor.fireDelayedEvent(0, new Combo3PopupEvent(pos)); break;
+                case 200: EventReactor.fireDelayedEvent(0, new Combo4PopupEvent(pos)); break;
+                case 250: EventReactor.fireDelayedEvent(0, new Combo5PopupEvent(pos)); break;
                 default: break;
             }
         }
