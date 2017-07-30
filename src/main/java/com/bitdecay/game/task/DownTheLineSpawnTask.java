@@ -26,7 +26,7 @@ public class DownTheLineSpawnTask extends AbstractTask {
     List<MyGameObject> myObjects = new ArrayList<>();
 
     public DownTheLineSpawnTask(Config conf) {
-        timeToWait = (float) conf.getDouble("time");
+        timeToWait = conf.hasPath("time") ? (float) conf.getDouble("time") : 0;;
         gameObjectNameToSpawn = conf.getString("gob");
         MyGameObjectFromConf.objectFromConf(gameObjectNameToSpawn, 0, 0); // run this at initialization to verify that the conf is clean
         secondsToComplete = (float) conf.getDouble("secondsToComplete");

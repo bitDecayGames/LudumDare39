@@ -50,6 +50,10 @@ public class MyGameObjects implements ICleanup {
         return this;
     }
 
+    public <T> int count(Class<T> clazz){
+        return (int) gobs.stream().filter(gob -> gob.hasComponent(clazz)).count();
+    }
+
     public int size(){
         return gobs.size();
     }
