@@ -25,7 +25,7 @@ public class GameOverScreen implements Screen {
 
     @Override
     public void show() {
-        SoundLibrary.stopMusic(Launcher.conf.getString("game.music"));
+        SoundLibrary.stopAllMusic();
         SoundLibrary.loopMusic(Launcher.conf.getString("gameOver.music"));
     }
 
@@ -64,6 +64,7 @@ public class GameOverScreen implements Screen {
     @Override
     public void dispose() {
         stage.dispose();
+        SoundLibrary.stopAllMusic();
     }
 
     private void nextScreen() {
