@@ -6,6 +6,8 @@ import com.bitdecay.game.component.WeaponComponent;
 import com.bitdecay.game.component.WeaponSelectionComponent;
 import com.bitdecay.game.event.EventReactor;
 import com.bitdecay.game.event.MachineGunFireEvent;
+import com.bitdecay.game.event.ReloadShotgunEvent;
+import com.bitdecay.game.event.ShotgunFireEvent;
 import com.bitdecay.game.gameobject.MyGameObject;
 import com.bitdecay.game.room.AbstractRoom;
 import com.bitdecay.game.system.abstracted.AbstractForEachUpdatableSystem;
@@ -38,9 +40,13 @@ public class ShootSystem extends AbstractForEachUpdatableSystem {
             bullets.forEach(bullet -> {
                 room.getGameObjects().add(bullet);
 
-                switch(weapon.bullet){
-                    case "HighVelocityBullet":
+                switch(weapon.weaponName){
+                    case "MachineGun":
                         EventReactor.fireEvent(new MachineGunFireEvent());
+                        break;
+                    case "Shotgun":
+                        EventReactor.fireEvent(new ShotgunFireEvent());
+                        EventReactor.fireDelayedEvent(0.5f, new ReloadShotgunEvent());
                         break;
                 }
             });

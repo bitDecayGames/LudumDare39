@@ -15,6 +15,8 @@ public class BulletPatternFactory {
                 return new SingleRandomSprayBulletPattern(50);
             case "SingleRandomSpray_SM":
                 return new SingleRandomSprayBulletPattern(10);
+            case "ScatterShot":
+                return new ScatterShotBulletPattern();
             default:
                 throw new RuntimeException("Could not find bullet pattern called: " + name);
         }

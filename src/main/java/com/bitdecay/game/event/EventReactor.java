@@ -17,9 +17,16 @@ public class EventReactor implements IUpdate {
 
     private List<IEventListener> listeners = new ArrayList<>();
     private List<IEvent> eventsToFire = new ArrayList<>();
+    private List<DelayedEvent> delayedEvents = new ArrayList<>();
+    private List<DelayedEvent> delayedEventsToRemove = new ArrayList<>();
 
     public static EventReactor fireEvent(IEvent event){
         getInstance().eventsToFire.add(event);
+        return getInstance();
+    }
+
+    public static EventReactor fireDelayedEvent(float delay, IEvent event){
+        getInstance().delayedEvents.add(new DelayedEvent(delay, event));
         return getInstance();
     }
 
@@ -43,5 +50,22 @@ public class EventReactor implements IUpdate {
     public void update(float delta) {
         eventsToFire.forEach(evt -> listeners.forEach(listener -> listener.handleEvent(evt)));
         eventsToFire.clear();
+        delayedEvents.forEach(de -> {
+            if (de.delay < 0) {
+                eventsToFire.add(de.inner);
+                delayedEventsToRemove.add(de);
+            } else de.delay -= delta;
+        });
+        delayedEvents.removeAll(delayedEventsToRemove);
+        delayedEventsToRemove.clear();
+    }
+
+    private static class DelayedEvent {
+        public float delay = 0;
+        public IEvent inner = null;
+        public DelayedEvent(float delay, IEvent inner){
+            this.delay = delay;
+            this.inner = inner;
+        }
     }
 }

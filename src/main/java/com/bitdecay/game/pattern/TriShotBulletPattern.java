@@ -1,9 +1,10 @@
 package com.bitdecay.game.pattern;
 
 import com.badlogic.gdx.math.Vector2;
-import com.bitdecay.game.component.*;
+import com.bitdecay.game.component.PositionComponent;
+import com.bitdecay.game.component.ShootComponent;
+import com.bitdecay.game.component.WeaponComponent;
 import com.bitdecay.game.gameobject.MyGameObject;
-import com.bitdecay.game.gameobject.MyGameObjectFromConf;
 import com.bitdecay.game.util.VectorMath;
 
 import java.util.Arrays;
@@ -20,14 +21,5 @@ public class TriShotBulletPattern extends AbstractBulletPattern {
                 createBullet(weapon.bullet, pos.x, pos.y, shotThatWay),
                 createBullet(weapon.bullet, pos.x, pos.y, shotTheOtherWay)
         );
-    }
-
-    private MyGameObject createBullet(String bulletName, float x, float y, Vector2 direction){
-        MyGameObject bullet = MyGameObjectFromConf.objectFromConf(bulletName, x, y);
-        bullet.forEach(VelocityComponent.class, velocity -> bullet.forEach(SpeedComponent.class, speed -> {
-            velocity.x = direction.x * speed.speed;
-            velocity.y = direction.y * speed.speed;
-        }));
-        return bullet;
     }
 }
