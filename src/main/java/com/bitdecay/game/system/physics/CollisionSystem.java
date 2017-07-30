@@ -78,7 +78,8 @@ public class CollisionSystem extends AbstractUpdatableSystem {
         ENEMY,
         PLAYER_BULLET,
         ENEMY_BULLET,
-        WALL
+        WALL,
+        PICKUP
     }
 
     public static Set<CollisionGroup> collisionGroupsFromStringList(List<String> groups){
