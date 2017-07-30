@@ -17,6 +17,7 @@ public class SpawnAndDieTask extends AbstractTask {
     public SpawnAndDieTask(Config conf) {
         timeToWait = (float) conf.getDouble("time");
         gameObjectNameToSpawn = conf.getString("gob");
+        MyGameObjectFromConf.objectFromConf(gameObjectNameToSpawn, 0, 0); // run this at initialization to verify that the conf is clean
         x = (float) conf.getDouble("x");
         y = (float) conf.getDouble("y");
     }

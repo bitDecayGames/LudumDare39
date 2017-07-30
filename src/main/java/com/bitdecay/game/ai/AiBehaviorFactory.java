@@ -23,6 +23,10 @@ public class AiBehaviorFactory {
                 return new SimpleAiBehavior(new CircleTowardPlayerAiCommand(-1));
             case "RandomCircling":
                 return new SimpleAiBehavior(new CircleTowardPlayerAiCommand(rnd.nextFloat() * 2f - 1f > 0 ? 1 : -1));
+            case "FlyUpAndDown":
+                return new SimpleAiBehavior(new FlyUpAndDownAiCommand());
+            case "FlyLeftAndRight":
+                return new SimpleAiBehavior(new FlyLeftAndRightAiCommand());
             default: throw new RuntimeException("Could not find an Ai Behavior called: " + behavior);
         }
     }
