@@ -17,6 +17,12 @@ public class AiBehaviorFactory {
                 return new SimpleAiBehavior(new CrawlOnWallAiCommand(1));
             case "CounterClockwiseWallCrawler":
                 return new SimpleAiBehavior(new CrawlOnWallAiCommand(-1));
+            case "ClockwiseCircling":
+                return new SimpleAiBehavior(new CircleTowardPlayerAiCommand(1));
+            case "CounterClockwiseCircling":
+                return new SimpleAiBehavior(new CircleTowardPlayerAiCommand(-1));
+            case "RandomCircling":
+                return new SimpleAiBehavior(new CircleTowardPlayerAiCommand(rnd.nextFloat() * 2f - 1f > 0 ? 1 : -1));
             default: throw new RuntimeException("Could not find an Ai Behavior called: " + behavior);
         }
     }
