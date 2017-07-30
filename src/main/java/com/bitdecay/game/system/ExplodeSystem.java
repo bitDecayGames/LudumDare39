@@ -3,6 +3,8 @@ package com.bitdecay.game.system;
 import com.bitdecay.game.component.DeadComponent;
 import com.bitdecay.game.component.ExploderComponent;
 import com.bitdecay.game.component.PositionComponent;
+import com.bitdecay.game.event.EventReactor;
+import com.bitdecay.game.event.ExplosionEvent;
 import com.bitdecay.game.gameobject.MyGameObject;
 import com.bitdecay.game.gameobject.MyGameObjectFactory;
 import com.bitdecay.game.room.AbstractRoom;
@@ -23,6 +25,7 @@ public class ExplodeSystem extends AbstractForEachUpdatableSystem {
                 gob.forEachComponentDo(DeadComponent.class, dead -> {
                     room.getGameObjects().add(MyGameObjectFactory.objectFromConf("rocketExplosion", pos.x, pos.y));
                     gob.removeComponent(ExploderComponent.class);
+                    EventReactor.fireEvent(new ExplosionEvent());
                 });
             });
         });

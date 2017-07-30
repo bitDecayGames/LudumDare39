@@ -12,7 +12,7 @@ public class ComboSystem extends AbstractUpdatableSystem implements IEventListen
 
     private int maxCombo = 0;
     private int currentCombo = 0;
-    private float comboTimerReset = 2;
+    private float comboTimerReset = 5;
     private float comboTimer = comboTimerReset;
 
     public ComboSystem(AbstractRoom room) {
