@@ -7,7 +7,7 @@ import com.bitdecay.game.event.EventReactor;
 import com.bitdecay.game.event.PlayerKillEvent;
 import com.bitdecay.game.gameobject.MyGameObject;
 import com.bitdecay.game.room.AbstractRoom;
-import com.bitdecay.game.screen.GameOverScreen;
+import com.bitdecay.game.screen.CreditsScreen;
 import com.bitdecay.game.system.abstracted.AbstractForEachUpdatableSystem;
 
 public class DeathSystem extends AbstractForEachUpdatableSystem {
@@ -27,7 +27,7 @@ public class DeathSystem extends AbstractForEachUpdatableSystem {
                 gob.addComponent(RemoveNowComponent.class);
                 gob.addComponent(new DeadComponent());
 
-                gob.forEach(PlayerInputComponent.class, player -> room.setScreen(new GameOverScreen(Launcher.GAME)));
+                gob.forEach(PlayerInputComponent.class, player -> room.setScreen(new CreditsScreen(Launcher.GAME)));
                 gob.forEach(AiComponent.class, ai -> {
                     EventReactor.fireEvent(new EnemyHurtEvent());
                     gob.forEach(PositionComponent.class, pos -> EventReactor.fireEvent(new PlayerKillEvent(pos.toVector2())));
