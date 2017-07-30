@@ -25,7 +25,7 @@ public class MovingAnimationSystem extends AbstractForEachUpdatableSystem {
             gob.forEachComponentDo(ShootComponent.class, shoot -> {
                 gob.forEachComponentDo(MovingAnimationComponent.class, animation -> {
                     AnimationState state = AnimationUtils.getStateFromVelocity(velocity.toVector2());
-                    AnimationDirection moveDirection = AnimationUtils.getDirectionFromInfo(velocity.toVector2());
+                    AnimationDirection moveDirection = AnimationUtils.getDirectionFromInfo(velocity.lastIntended);
                     AnimationDirection shootDirection = AnimationUtils.getDirectionFromInfo(shoot.toVector2());
 
                     boolean flipped = AnimationDirection.moreThanNinetyOff(moveDirection, shootDirection);

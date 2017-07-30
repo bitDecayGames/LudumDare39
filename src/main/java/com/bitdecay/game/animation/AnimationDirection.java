@@ -26,7 +26,7 @@ public enum AnimationDirection {
             case DOWN:
                 return !shootDirection.isOneOf(RIGHT, DOWNRIGHT, DOWN, DOWNLEFT, LEFT);
             case DOWNLEFT:
-                return !shootDirection.isOneOf(DOWNRIGHT, DOWN, DOWNLEFT, LEFT, UPRIGHT);
+                return !shootDirection.isOneOf(DOWNRIGHT, DOWN, DOWNLEFT, LEFT, UPLEFT);
             case LEFT:
                 return !shootDirection.isOneOf(DOWN, DOWNLEFT, LEFT, UPLEFT, UP);
             case UPLEFT:
