@@ -11,6 +11,7 @@ public class FloorComponent extends AbstractComponent {
     public final String schedule;
     public final String bgImage;
     public final String next;
+    public final String music;
     public boolean floorLoaded;
 
 
@@ -19,6 +20,7 @@ public class FloorComponent extends AbstractComponent {
         this.bgImage = conf.getString("background");
         this.schedule = conf.getString("schedule");
         this.next = conf.getString("next");
+        this.music = conf.getString("music");
         floorLoaded = false;
     }
 

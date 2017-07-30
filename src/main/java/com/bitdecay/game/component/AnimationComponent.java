@@ -20,12 +20,13 @@ public class AnimationComponent extends DrawableComponent {
     public AnimationComponent(Config conf) {
         String bundle = conf.getString("bundle");
         animations = AnimationUtils.parseAnimationBundle(bundle);
+        activeAnimation = animations.get(AnimationState.IDLE).get(AnimationDirection.DOWN);
     }
 
     @Override
     public TextureRegion image() {
         if (activeAnimation == null) {
-            return new TextureRegion();
+            throw new RuntimeException("Active animation was null");
         } else {
             return activeAnimation.getFrame();
         }

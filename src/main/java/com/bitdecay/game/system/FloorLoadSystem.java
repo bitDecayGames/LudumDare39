@@ -5,6 +5,7 @@ import com.bitdecay.game.gameobject.MyGameObject;
 import com.bitdecay.game.gameobject.MyGameObjectFactory;
 import com.bitdecay.game.room.AbstractRoom;
 import com.bitdecay.game.system.abstracted.AbstractForEachUpdatableSystem;
+import com.bitdecay.game.util.SoundLibrary;
 
 /**
  * Created by Monday on 7/29/2017.
@@ -34,6 +35,8 @@ public class FloorLoadSystem extends AbstractForEachUpdatableSystem {
                 room.camera.zoom += .1f;
                 room.camera.position.set(0, 20, 0);
                 floor.floorLoaded = true;
+                SoundLibrary.stopAllMusic();
+                SoundLibrary.playMusic(floor.music);
             }
         });
     }

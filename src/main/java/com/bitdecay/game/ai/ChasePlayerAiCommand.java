@@ -15,7 +15,7 @@ public class ChasePlayerAiCommand implements IAiCommand {
         self.forEach(PositionComponent.class, pos ->
                 self.forEach(VelocityComponent.class, vel ->
                         self.forEach(SpeedComponent.class, speed -> {
-                            vel.set(playerPos.cpy().sub(pos.x, pos.y).nor().scl(speed.speed));
+                            vel.setAndIntended(playerPos.cpy().sub(pos.x, pos.y).nor().scl(speed.speed));
                         })));
     }
 }

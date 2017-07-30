@@ -13,7 +13,7 @@ public class FlyUpAndDownAiCommand implements IAiCommand {
     @Override
     public void update(float delta, MyGameObject self, Vector2 playerPos) {
         self.forEach(PositionComponent.class, pos -> self.forEach(VelocityComponent.class, vel -> self.forEach(SpeedComponent.class, speed -> {
-            vel.set(0, vel.y + (0-pos.y)*speed.speed);
+            vel.setAndIntended(0, vel.y + (0-pos.y)*speed.speed);
         })));
     }
 }

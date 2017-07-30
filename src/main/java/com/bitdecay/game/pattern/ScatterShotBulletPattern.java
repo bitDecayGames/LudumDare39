@@ -22,7 +22,7 @@ public class ScatterShotBulletPattern extends AbstractBulletPattern {
         for (int i = 0; i < numberOfBullets; i++){
             bullets.add(createBullet(weapon.bullet, pos.x, pos.y, VectorMath.rotatePointByDegreesAroundZero(shotForward.cpy(), (rnd.nextFloat() * 2 - 1) * 25)));
         }
-        bullets.forEach(gob -> gob.forEach(VelocityComponent.class, vel -> vel.set(vel.toVector2().scl(rnd.nextFloat() + 0.5f))));
+        bullets.forEach(gob -> gob.forEach(VelocityComponent.class, vel -> vel.setAndIntended(vel.toVector2().scl(rnd.nextFloat() + 0.5f))));
         return bullets;
     }
 
