@@ -87,7 +87,7 @@ public class MainMenuScreen implements Screen {
     @Override
     public void show() {
         // TODO: maybe play music here if the music from the intro is not still playing
-
+        SoundLibrary.loopMusic(Launcher.conf.getString("splash.music"));
         // animate the main menu when entering
         Action fadeIn = Actions.sequence(Actions.alpha(0),
                 Actions.delay(0.25f),
