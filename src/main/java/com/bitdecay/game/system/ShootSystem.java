@@ -45,6 +45,12 @@ public class ShootSystem extends AbstractForEachUpdatableSystem {
                         EventReactor.fireEvent(new ShotgunFireEvent());
                         EventReactor.fireDelayedEvent(0.5f, new ReloadShotgunEvent());
                         break;
+                    case "Rocket":
+                        EventReactor.fireEvent(new ShotgunFireEvent());
+                        break;
+                    case "Thrower":
+                        EventReactor.fireEvent(new MachineGunFireEvent());
+                        break;
                 }
             });
             weapon.cooldown = weapon.secondsPerBullet;
