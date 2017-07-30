@@ -18,7 +18,7 @@ public class ScatterShotBulletPattern extends AbstractBulletPattern {
     @Override
     public List<MyGameObject> generateBulletPattern(PositionComponent pos, ShootComponent shoot, WeaponComponent weapon){
         Vector2 shotForward = shoot.toVector2();
-        int numberOfBullets = 5 + (int) (rnd.nextFloat() * 10f);
+        int numberOfBullets = 20 + (int) (rnd.nextFloat() * 10f);
         List<MyGameObject> bullets = new ArrayList<>();
         for (int i = 0; i < numberOfBullets; i++){
             bullets.add(createBullet(weapon.bullet, pos.x, pos.y, VectorMath.rotatePointByDegreesAroundZero(shotForward.cpy(), (rnd.nextFloat() * 2 - 1) * 25)));

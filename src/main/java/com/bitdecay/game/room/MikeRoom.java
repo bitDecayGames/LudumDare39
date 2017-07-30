@@ -6,6 +6,7 @@ import com.bitdecay.game.gameobject.MyGameObjectFromConf;
 import com.bitdecay.game.screen.GameScreen;
 import com.bitdecay.game.system.*;
 import com.bitdecay.game.system.physics.CollisionSystem;
+import com.bitdecay.game.system.physics.FrictionSystem;
 import com.bitdecay.game.system.physics.ManifoldResolutionSystem;
 import com.bitdecay.game.system.physics.VelocitySystem;
 
@@ -38,6 +39,7 @@ public class MikeRoom extends AbstractRoom {
         new ExplodeSystem(this);
         new DeathSystem(this);
         new VelocitySystem(this);
+        new FrictionSystem(this);
         new FloorLoadSystem(this);
         new ChangeFloorsSystem(this);
         new AimingAnimationSystem(this);

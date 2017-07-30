@@ -1,7 +1,7 @@
 package com.bitdecay.game.system;
 
+import com.bitdecay.game.component.DeadComponent;
 import com.bitdecay.game.component.ExploderComponent;
-import com.bitdecay.game.component.HealthComponent;
 import com.bitdecay.game.component.PositionComponent;
 import com.bitdecay.game.gameobject.MyGameObject;
 import com.bitdecay.game.gameobject.MyGameObjectFactory;
@@ -20,11 +20,9 @@ public class ExplodeSystem extends AbstractForEachUpdatableSystem {
     protected void forEach(float delta, MyGameObject gob) {
         gob.forEachComponentDo(PositionComponent.class, pos -> {
             gob.forEachComponentDo(ExploderComponent.class, explode -> {
-                gob.forEachComponentDo(HealthComponent.class, health -> {
-                    if (health.hp <= 0) {
-                        room.getGameObjects().add(MyGameObjectFactory.objectFromConf("rocketExplosion", pos.x, pos.y));
-                        gob.removeComponent(ExploderComponent.class);
-                    }
+                gob.forEachComponentDo(DeadComponent.class, dead -> {
+                    room.getGameObjects().add(MyGameObjectFactory.objectFromConf("rocketExplosion", pos.x, pos.y));
+                    gob.removeComponent(ExploderComponent.class);
                 });
             });
         });
@@ -33,7 +31,7 @@ public class ExplodeSystem extends AbstractForEachUpdatableSystem {
     @Override
     protected boolean validateGob(MyGameObject gob) {
         return gob.hasComponents(
-                HealthComponent.class,
+                DeadComponent.class,
                 ExploderComponent.class,
                 PositionComponent.class
         );
