@@ -1,11 +1,12 @@
 package com.bitdecay.game.system;
 
 import com.badlogic.gdx.Input;
-import com.bitdecay.game.gameobject.MyGameObject;
-import com.bitdecay.game.system.abstracted.AbstractUpdatableSystem;
-import com.bitdecay.game.room.AbstractRoom;
+import com.badlogic.gdx.math.Vector2;
 import com.bitdecay.game.component.PlayerInputComponent;
 import com.bitdecay.game.component.ShootComponent;
+import com.bitdecay.game.gameobject.MyGameObject;
+import com.bitdecay.game.room.AbstractRoom;
+import com.bitdecay.game.system.abstracted.AbstractUpdatableSystem;
 import com.bitdecay.game.util.InputHelper;
 
 /**
@@ -37,6 +38,11 @@ public class KeyboardShootSystem extends AbstractUpdatableSystem {
 
         gobs.forEach(gob -> gob.forEachComponentDo(PlayerInputComponent.class, pi ->
             gob.forEachComponentDo(ShootComponent.class, shoot -> {
+                Vector2 intendedDirection = new Vector2(finalDesiredShootX, finalDesiredShootY);
+                if (intendedDirection.len() != 0) {
+                    shoot.lastIntended.set(intendedDirection);
+                }
+
                 shoot.x = finalDesiredShootX;
                 shoot.y = finalDesiredShootY;
             }))

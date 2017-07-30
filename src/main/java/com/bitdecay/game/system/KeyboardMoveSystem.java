@@ -1,6 +1,7 @@
 package com.bitdecay.game.system;
 
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.math.Vector2;
 import com.bitdecay.game.component.PlayerInputComponent;
 import com.bitdecay.game.component.SpeedComponent;
 import com.bitdecay.game.component.VelocityComponent;
@@ -37,6 +38,10 @@ public class KeyboardMoveSystem extends AbstractUpdatableSystem {
         final int finalDesiredMoveY = desiredMoveY;
 
         gobs.forEach(gob -> gob.forEach(VelocityComponent.class, velocity -> gob.forEach(SpeedComponent.class, speed -> {
+            Vector2 intendedDirection = new Vector2(finalDesiredMoveX, finalDesiredMoveY);
+            if (intendedDirection.len() != 0) {
+                velocity.lastIntended.set(intendedDirection);
+            }
             velocity.x = speed.speed * finalDesiredMoveX;
             velocity.y = speed.speed * finalDesiredMoveY;
         })));

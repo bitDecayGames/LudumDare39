@@ -5,6 +5,7 @@ import com.badlogic.gdx.math.Vector2;
 public class ShootComponent extends AbstractComponent {
     public float x = 0;
     public float y = 0;
+    public Vector2 lastIntended = new Vector2();
 
     public ShootComponent(float x, float y){
         this.x = x;
