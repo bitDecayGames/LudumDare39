@@ -24,7 +24,6 @@ public class TrapDoorSystem extends AbstractForEachUpdatableSystem {
                     for (Manifold manifold : collision.manifolds) {
                         if (!next.triggered && isPlayer(manifold.other)) {
                             next.triggered = true;
-                            System.out.println("PLAYER TOUCHED ME");
                             // we've collided with the player! (I think)
                             floorRef.gob.removeComponent(FloorComponent.class);
                             floorRef.gob.removeComponent(ScheduleComponent.class);

@@ -23,9 +23,7 @@ public class ChangeFloorsSystem extends AbstractForEachUpdatableSystem {
             gob.forEachComponentDo(ScheduleComponent.class, schedule -> {
                 if (schedule.isComplete) {
                     // change floors automatically
-                    System.out.println("TRIGGERING TRAP DOOR");
                     gob.removeComponent(ScheduleComponent.class);
-                    System.out.println("Changing floors to " + floor.next);
                     MyGameObject trapDoor = MyGameObjectFromConf.objectFromConf("trapDoor", 0, 0);
                     trapDoor.addComponent(new GobRefComponent(gob));
                     trapDoor.addComponent(new NextFloorComponent(floor.next));
