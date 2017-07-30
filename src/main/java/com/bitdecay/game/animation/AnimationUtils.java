@@ -66,28 +66,39 @@ public class AnimationUtils {
     }
 
     public static AnimationDirection getDirectionFromInfo(Vector2 aimDir) {
-        if (aimDir.x > 0) {
-            if (aimDir.y > 0) {
-                return AnimationDirection.UPRIGHT;
-            } else if (aimDir.y < 0) {
-                return AnimationDirection.DOWNRIGHT;
-            } else {
-                return AnimationDirection.RIGHT;
-            }
-        } else if (aimDir.x < 0) {
-            if (aimDir.y > 0) {
-                return AnimationDirection.UPLEFT;
-            } else if (aimDir.y < 0) {
-                return AnimationDirection.DOWNLEFT ;
-            } else {
-                return AnimationDirection.LEFT;
-            }
-        } else {
-            if (aimDir.y > 0) {
-                return AnimationDirection.UP;
-            } else {
-                return AnimationDirection.DOWN;
-            }
+        float angle = aimDir.angle();
+        if (angle >= 337.5 || angle < 22.5) {
+            return AnimationDirection.RIGHT;
         }
+
+        if (angle >= 22.5 && angle < 67.5) {
+            return AnimationDirection.UPRIGHT;
+        }
+
+        if (angle >= 67.5 && angle < 112.5) {
+            return AnimationDirection.UP;
+        }
+
+        if (angle >= 112.5 && angle < 157.5) {
+            return AnimationDirection.UPLEFT;
+        }
+
+        if (angle >= 157.5 && angle < 202.5) {
+            return AnimationDirection.LEFT;
+        }
+
+        if (angle >= 202.5 && angle < 247.5) {
+            return AnimationDirection.DOWNLEFT;
+        }
+
+        if (angle >= 247.5 && angle < 292.5) {
+            return AnimationDirection.DOWN;
+        }
+
+        if (angle >= 292.5 && angle < 337.5) {
+            return AnimationDirection.DOWNRIGHT;
+        }
+
+        return AnimationDirection.DOWN;
     }
 }
