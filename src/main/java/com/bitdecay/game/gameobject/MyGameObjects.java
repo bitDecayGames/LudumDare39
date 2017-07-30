@@ -3,10 +3,7 @@ package com.bitdecay.game.gameobject;
 import com.bitdecay.game.trait.ICleanup;
 import com.bitdecay.game.trait.IRefreshable;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.function.Consumer;
 
 /**
@@ -17,6 +14,10 @@ public class MyGameObjects implements ICleanup {
 
     private final List<MyGameObject> gobs = new ArrayList<>();
     private final List<MyGameObject> gobsToAdd = new ArrayList<>();
+
+    private final Map<MyGameObject, MyGameObject> gobsAddMap = new HashMap<>();
+    private final Map<MyGameObject, Integer> tempMap = new HashMap<>();
+
     private final List<MyGameObject> gobsToRemove = new ArrayList<>();
     private final List<IRefreshable> refreshables = new ArrayList<>();
 
@@ -27,6 +28,12 @@ public class MyGameObjects implements ICleanup {
 
     public MyGameObjects add(MyGameObject gob){
         gobsToAdd.add(gob);
+        dirty = true;
+        return this;
+    }
+
+    public MyGameObjects addAfter(MyGameObject addThis, MyGameObject afterThis) {
+        gobsAddMap.put(addThis, afterThis);
         dirty = true;
         return this;
     }
@@ -70,6 +77,22 @@ public class MyGameObjects implements ICleanup {
         gobsToRemove.clear();
         gobsToAdd.forEach(gobs::add);
         gobsToAdd.clear();
+
+        for (Map.Entry<MyGameObject, MyGameObject> entry : gobsAddMap.entrySet()) {
+            for (int i = 0; i < gobs.size(); i++) {
+                if (gobs.get(i) == entry.getValue()) {
+                    tempMap.put(entry.getKey(), i+1);
+                }
+            }
+        }
+
+        for (Map.Entry<MyGameObject, Integer> inserts : tempMap.entrySet()) {
+            gobs.add(inserts.getValue(), inserts.getKey());
+        }
+
+        gobsAddMap.clear();
+        tempMap.clear();
+
         gobs.forEach(MyGameObject::cleanup);
         refreshables.forEach(r -> r.refresh(gobs));
     }
