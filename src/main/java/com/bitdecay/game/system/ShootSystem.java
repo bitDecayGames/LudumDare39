@@ -3,13 +3,12 @@ package com.bitdecay.game.system;
 import com.bitdecay.game.component.PositionComponent;
 import com.bitdecay.game.component.ShootComponent;
 import com.bitdecay.game.component.WeaponComponent;
+import com.bitdecay.game.component.WeaponSelectionComponent;
 import com.bitdecay.game.event.EventReactor;
 import com.bitdecay.game.event.MachineGunFireEvent;
-import com.bitdecay.game.component.WeaponSelectionComponent;
 import com.bitdecay.game.gameobject.MyGameObject;
 import com.bitdecay.game.room.AbstractRoom;
 import com.bitdecay.game.system.abstracted.AbstractForEachUpdatableSystem;
-import com.oracle.tools.packager.Log;
 
 import java.util.List;
 
