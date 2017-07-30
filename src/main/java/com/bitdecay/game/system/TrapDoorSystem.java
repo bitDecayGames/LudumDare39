@@ -1,6 +1,8 @@
 package com.bitdecay.game.system;
 
 import com.bitdecay.game.component.*;
+import com.bitdecay.game.event.EventReactor;
+import com.bitdecay.game.event.TrapdoorTouchEvent;
 import com.bitdecay.game.gameobject.MyGameObject;
 import com.bitdecay.game.gameobject.MyGameObjectFactory;
 import com.bitdecay.game.physics.Manifold;
@@ -30,6 +32,7 @@ public class TrapDoorSystem extends AbstractForEachUpdatableSystem {
                             floorRef.gob.removeComponent(StaticImageComponent.class);
                             floorRef.gob.addComponent(MyGameObjectFactory.objectFromConf(next.name, 0, 0).getComponent(FloorComponent.class).get());
                             gob.addComponent(RemoveNowComponent.class);
+                            EventReactor.fireEvent(new TrapdoorTouchEvent());
                             return;
                         }
                     }
