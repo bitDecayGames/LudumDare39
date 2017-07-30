@@ -7,6 +7,7 @@ import com.typesafe.config.Config;
  */
 public class NextFloorComponent extends AbstractComponent {
     public String name;
+    public boolean triggered = false;
 
     public NextFloorComponent(String name) {
         this.name = name;
