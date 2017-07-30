@@ -3,10 +3,11 @@ package com.bitdecay.game.component;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.bitdecay.game.Launcher;
 import com.bitdecay.game.MyGame;
+import com.bitdecay.game.animation.Animation;
 import com.bitdecay.game.animation.AnimationDirection;
 import com.bitdecay.game.animation.AnimationState;
-import com.bytebreakstudios.animagic.animation.Animation;
 import com.bytebreakstudios.animagic.animation.FrameRate;
+import com.bytebreakstudios.animagic.texture.AnimagicTextureRegion;
 import com.typesafe.config.Config;
 
 import java.util.ArrayList;
@@ -51,9 +52,11 @@ public class AnimationComponent extends DrawableComponent {
                 List<String> framePaths = dirConf.getStringList("frames");
                 ArrayList<TextureRegion> regions = new ArrayList<>();
                 for (String framePath : framePaths) {
-                    regions.add(MyGame.ATLAS.findRegion(framePath));
+                    for (AnimagicTextureRegion animagicTextureRegion : MyGame.ATLAS.findRegions(framePath)) {
+                        regions.add(animagicTextureRegion);
+                    }
                 }
-                Animation animation = new Animation("name", Animation.AnimationPlayState.REPEAT, FrameRate.perFrame(0.1f), regions.toArray(new TextureRegion[regions.size()]));
+                Animation animation = new Animation("name", com.bytebreakstudios.animagic.animation.Animation.AnimationPlayState.REPEAT, FrameRate.perFrame(0.1f), regions.toArray(new TextureRegion[regions.size()]));
                 directionMap.put(direction, animation);
             }
         }

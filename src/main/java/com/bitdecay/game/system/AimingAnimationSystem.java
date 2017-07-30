@@ -1,5 +1,6 @@
 package com.bitdecay.game.system;
 
+import com.bitdecay.game.animation.Animation;
 import com.bitdecay.game.animation.AnimationDirection;
 import com.bitdecay.game.animation.AnimationState;
 import com.bitdecay.game.animation.AnimationUtils;
@@ -9,7 +10,6 @@ import com.bitdecay.game.component.VelocityComponent;
 import com.bitdecay.game.gameobject.MyGameObject;
 import com.bitdecay.game.room.AbstractRoom;
 import com.bitdecay.game.system.abstracted.AbstractForEachUpdatableSystem;
-import com.bytebreakstudios.animagic.animation.Animation;
 
 /**
  * Created by Monday on 7/29/2017.
