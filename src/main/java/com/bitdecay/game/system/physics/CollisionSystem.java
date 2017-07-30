@@ -68,6 +68,21 @@ public class CollisionSystem extends AbstractUpdatableSystem {
                         gobInner.addComponent(new DeadComponent());
                         gobInner.addComponent(new RemoveNowComponent());
                     });
+
+                    gobOutter.forEach(PickupComponent.class, pickup -> {
+                        switch (pickup.type){
+                            case "Health":
+                                gobInner.forEach(HealthComponent.class, health -> health.hp = health.maxHp);
+                                break;
+                            case "Shotgun":
+                            case "Rocket":
+                            case "Thrower":
+                                gobInner.forEach(WeaponComponent.class, weapon -> {
+                                    if (weapon.weaponName.equalsIgnoreCase(pickup.type)) weapon.ammo = weapon.maxAmmo;
+                                });
+                                break;
+                        }
+                    });
                 }
             });
         });

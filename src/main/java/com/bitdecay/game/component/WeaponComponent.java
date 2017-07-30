@@ -16,6 +16,7 @@ public class WeaponComponent extends AbstractComponent {
     public String bullet;
     public AbstractBulletPattern pattern;
     public int ammo = 1;
+    public int maxAmmo = 1;
     public boolean unlimitedAmmo = false;
     public float secondsPerBullet = 1;
     public float cooldown = 0;
@@ -28,6 +29,7 @@ public class WeaponComponent extends AbstractComponent {
         this.pattern = BulletPatternFactory.getBulletPatternByName(pattern);
         this.secondsPerBullet = bulletsPerSecond;
         this.ammo = ammo;
+        this.maxAmmo = ammo;
         this.unlimitedAmmo = unlimitedAmmo;
     }
 
@@ -37,6 +39,7 @@ public class WeaponComponent extends AbstractComponent {
         pattern = BulletPatternFactory.getBulletPatternByName(conf.getString("pattern"));
         secondsPerBullet = (float) conf.getDouble("secondsPerBullet");
         ammo = conf.getInt("ammo");
+        maxAmmo = ammo;
         unlimitedAmmo = conf.getBoolean("unlimitedAmmo");
         animationMap = AnimationUtils.parseAnimationBundle(conf.getString("animationBundle"));
     }
