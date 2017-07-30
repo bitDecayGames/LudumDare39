@@ -50,6 +50,10 @@ public class SoundLibrary {
         });
     }
 
+    public static synchronized boolean hasSound(String name){
+        return sounds.containsKey(name);
+    }
+
     public static synchronized Sound playSound(String name) {
         return getSound(name).play();
     }
@@ -65,13 +69,21 @@ public class SoundLibrary {
             sound = sounds.get(name);
             if (sound == null) throw new RuntimeException("Could not find configured sound: " + name + ".  You must define it in the sounds.conf file.");
             if (sound.sound == null) {
-                sound.sound = Gdx.audio.newSound(Gdx.files.classpath("sound/fx/" + name + ".wav"));
+                FileHandle fxFile = Gdx.files.classpath("sound/fx/" + name + ".wav");
+                if (!fxFile.exists()) {
+                    fxFile = Gdx.files.classpath("sound/fx/" + name + ".ogg");
+                }
+                sound.sound = Gdx.audio.newSound(fxFile);
             }
 
             return sound;
         } catch (Exception e){
             throw new RuntimeException("Could not get sound: " + name, e);
         }
+    }
+
+    public static synchronized boolean hasMusic(String name){
+        return musics.containsKey(name);
     }
 
     public static synchronized Music playMusic(String name) {
@@ -92,6 +104,7 @@ public class SoundLibrary {
             if (music.music == null) {
                 FileHandle musicFile = Gdx.files.classpath("sound/music/" + name + ".mp3");
                 if (!musicFile.exists()) musicFile = Gdx.files.classpath("sound/music/" + name + ".wav");
+                if (!musicFile.exists()) musicFile = Gdx.files.classpath("sound/music/" + name + ".ogg");
                 music.music = Gdx.audio.newMusic(musicFile);
                 musics.put(name, music);
             }

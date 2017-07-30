@@ -31,6 +31,7 @@ public class MikeRoom extends AbstractRoom {
         new ScheduleSystem(this);
         new KeyboardMoveSystem(this);
         new KeyboardShootSystem(this);
+        new KeyboardWeaponChangeSystem(this);
         new ShootSystem(this);
         new DamageSystem(this);
         new DeathSystem(this);
@@ -39,6 +40,8 @@ public class MikeRoom extends AbstractRoom {
         new ChangeFloorsSystem(this);
         new AimingAnimationSystem(this);
         new MovingAnimationSystem(this);
+        new SoundSystem(this);
+        new AiSystem(this);
 
         gobs.add(MyGameObjectFromConf.objectFromConf("NorthBoundary", 0, 0));
         gobs.add(MyGameObjectFromConf.objectFromConf("WestBoundary", 0, 0));

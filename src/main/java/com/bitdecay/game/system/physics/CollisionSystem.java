@@ -1,6 +1,8 @@
 package com.bitdecay.game.system.physics;
 
 import com.bitdecay.game.component.*;
+import com.bitdecay.game.event.EventReactor;
+import com.bitdecay.game.event.PlayerHurtEvent;
 import com.bitdecay.game.gameobject.MyGameObject;
 import com.bitdecay.game.physics.CollisionUtils;
 import com.bitdecay.game.physics.Manifold;
@@ -45,10 +47,16 @@ public class CollisionSystem extends AbstractUpdatableSystem {
                 if (manifold != null) {
                     outterCollider.manifolds.add(manifold);
                     if (gobOutter.hasComponent(DamagerComponent.class) && gobInner.hasComponent(HealthComponent.class)) gobOutter.forEach(DamagerComponent.class, dmg -> {
-                        if (dmg.targetGroups.size() == 0 || innerCollider.isPartOfGroups.stream().anyMatch(dmg.targetGroups::contains)) gobInner.addComponent(new DamageComponent(dmg.damage));
+                        if (dmg.targetGroups.size() == 0 || innerCollider.isPartOfGroups.stream().anyMatch(dmg.targetGroups::contains)) {
+                            gobInner.addComponent(new DamageComponent(dmg.damage));
+                            if (gobInner.hasComponent(PlayerInputComponent.class)) EventReactor.fireEvent(new PlayerHurtEvent(gobOutter));
+                        }
                     });
                     else if (gobInner.hasComponent(DamagerComponent.class) && gobOutter.hasComponent(HealthComponent.class)) gobInner.forEach(DamagerComponent.class, dmg -> {
-                        if (dmg.targetGroups.size() == 0 || outterCollider.isPartOfGroups.stream().anyMatch(dmg.targetGroups::contains)) gobOutter.addComponent(new DamageComponent(dmg.damage));
+                        if (dmg.targetGroups.size() == 0 || outterCollider.isPartOfGroups.stream().anyMatch(dmg.targetGroups::contains)) {
+                            gobOutter.addComponent(new DamageComponent(dmg.damage));
+                            if (gobOutter.hasComponent(PlayerInputComponent.class)) EventReactor.fireEvent(new PlayerHurtEvent(gobInner));
+                        }
                     });
                 }
             });
