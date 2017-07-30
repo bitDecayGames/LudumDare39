@@ -50,10 +50,14 @@ public class MikeRoom extends AbstractRoom {
         new PopupSystem(this);
         new ComboSystem(this);
 
-        gobs.add(MyGameObjectFromConf.objectFromConf("NorthBoundary", 0, 0));
-        gobs.add(MyGameObjectFromConf.objectFromConf("WestBoundary", 0, 0));
-        gobs.add(MyGameObjectFromConf.objectFromConf("SouthBoundary", 0, 0));
-        gobs.add(MyGameObjectFromConf.objectFromConf("EastBoundary", 0, 0));
+        gobs.add(MyGameObjectFromConf.objectFromConf("NorthMoveBoundary", 0, 0));
+        gobs.add(MyGameObjectFromConf.objectFromConf("NorthBulletBoundary", 0, 0));
+        gobs.add(MyGameObjectFromConf.objectFromConf("WestMoveBoundary", 0, 0));
+        gobs.add(MyGameObjectFromConf.objectFromConf("WestBulletBoundary", 0, 0));
+        gobs.add(MyGameObjectFromConf.objectFromConf("SouthMoveBoundary", 0, 0));
+        gobs.add(MyGameObjectFromConf.objectFromConf("SouthBulletBoundary", 0, 0));
+        gobs.add(MyGameObjectFromConf.objectFromConf("EastMoveBoundary", 0, 0));
+        gobs.add(MyGameObjectFromConf.objectFromConf("EastBulletBoundary", 0, 0));
         gobs.add(MyGameObjectFactory.objectFromConf("floor10", 0, 0));
         gobs.add(MyGameObjectFactory.objectFromConf("Player", 0, 0));
         // this is required to be at the end here so that the systems have the latest gobs
