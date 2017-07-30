@@ -15,7 +15,6 @@ public class ChargeAiCommand implements IAiCommand {
 
     @Override
     public void start(MyGameObject self, Vector2 playerPos) {
-        System.out.println("Charge AI command start!");
         self.forEach(PositionComponent.class, pos ->
                 self.forEach(VelocityComponent.class, vel ->
                         self.forEach(SpeedComponent.class, speed -> {
