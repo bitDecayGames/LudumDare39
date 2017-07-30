@@ -22,34 +22,11 @@ import com.bitdecay.game.weapon.WeaponUtils;
 import java.util.List;
 
 public class ShootSystem extends AbstractForEachUpdatableSystem {
-    private Label lblAmmo;
-    private Label lblGun;
     private Stage stage = new Stage();
 
 
     public ShootSystem(AbstractRoom room) {
         super(room);
-
-        Skin skin = new Skin(Gdx.files.classpath(Launcher.conf.getString("credits.skin")));
-        lblGun = new Label("Gun", skin);
-        lblGun.setFontScale(1.5f);
-        lblGun.setFillParent(true);
-        lblGun.setX(825);
-        lblGun.setY(263);
-        lblGun.setColor(Color.GOLDENROD);
-
-        lblAmmo = new Label("Ammo", skin);
-        lblAmmo.setFontScale(1.5f);
-        lblAmmo.setFillParent(true);
-        lblAmmo.setX(825);
-        lblAmmo.setY(250);
-        lblAmmo.setColor(Color.GOLDENROD);
-
-
-        stage.addActor(lblAmmo);
-        stage.addActor(lblGun);
-
-        Gdx.input.setInputProcessor(stage);
     }
 
     @Override
@@ -90,19 +67,5 @@ public class ShootSystem extends AbstractForEachUpdatableSystem {
         } else if (weapon.cooldown > 0){
             weapon.cooldown -= delta;
         }
-
-        String ammo;
-        if (weapon.unlimitedAmmo) {
-            ammo = "Unlimited";
-        }
-        else {
-            ammo = Integer.toString(weapon.ammo);
-        }
-
-        lblAmmo.setText("Ammo: " + ammo);
-        lblGun.setText("Gun: " + weapon.weaponName);
-
-        stage.act();
-        stage.draw();
     }
 }
