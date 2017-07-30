@@ -15,6 +15,7 @@ import com.badlogic.gdx.utils.Align;
 import com.bitdecay.game.Launcher;
 import com.bitdecay.game.MyGame;
 import com.bitdecay.game.util.InputHelper;
+import com.bitdecay.game.util.SoundLibrary;
 
 /**
  * This is the generic credits screen.  Almost everything in the credits is populated from the /resources/conf/credits.conf file.  The only reason you should be making changes to this file is to adjust the position or speed of the text.
@@ -101,6 +102,8 @@ public class CreditsScreen implements Screen {
 
     @Override
     public void show() {
+        SoundLibrary.stopAllMusic();
+        SoundLibrary.loopMusic(Launcher.conf.getString("credits.music"));
         lblCredits.addAction(Actions.sequence(
                 Actions.moveBy(0, -(Gdx.graphics.getHeight()*1.5f)),
                 Actions.moveBy(0, Gdx.graphics.getHeight() * 4, 30),
@@ -146,6 +149,7 @@ public class CreditsScreen implements Screen {
 
     @Override
     public void dispose() {
+        SoundLibrary.stopAllMusic();
         stage.dispose();
     }
 }
