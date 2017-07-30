@@ -44,6 +44,7 @@ public class MikeRoom extends AbstractRoom {
         new WeaponAnimationSystem(this);
         new SoundSystem(this);
         new AiSystem(this);
+        new PopupSystem(this);
 
         gobs.add(MyGameObjectFromConf.objectFromConf("NorthBoundary", 0, 0));
         gobs.add(MyGameObjectFromConf.objectFromConf("WestBoundary", 0, 0));

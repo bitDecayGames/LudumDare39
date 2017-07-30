@@ -26,7 +26,9 @@ public class SoundSystem extends AbstractUpdatableSystem implements IEventListen
         soundEventers = Launcher.conf.getConfigList("sounds.events").stream().map(conf -> new SoundEventer(conf.getString("name"), (conf.hasPath("fx") ? conf.getString("fx") : null), (conf.hasPath("music") ? conf.getString("music") : null))).collect(Collectors.toList());
         musicEvents = soundEventers.stream().filter(s -> s.name.startsWith("GameMusic")).collect(Collectors.toList());
         //log.info("Built sound eventers: " + soundEventers);
-        onCompletion(null); // start up a random music
+
+        // TODO: UNCOMMENT THIS IF YOU WANT THE LOOPING-CHAINED MUSIC CLIPS
+        //onCompletion(null); // start up a random music
     }
 
     @Override
