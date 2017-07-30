@@ -32,8 +32,6 @@ public class ShootSystem extends AbstractForEachUpdatableSystem {
 
         int selectedWeaponIndex = weaponSelection.selectedIndex % weaponCount;
         WeaponComponent weapon = (WeaponComponent) gob.getComponentByIndex(WeaponComponent.class, selectedWeaponIndex).get();
-        System.out.println("weaponCount: " + weaponCount);
-        System.out.println("selectedWeaponIndex: " + selectedWeaponIndex);
 
         // TODO: do some logic to only shoot the weapon at the correct speed and don't shoot if there are more than the max bullets
         if ((shoot.x != 0 || shoot.y != 0) && weapon.cooldown <= 0 && (weapon.unlimitedAmmo || weapon.ammo > 0)){

@@ -20,7 +20,7 @@ public class KeyboardWeaponChangeSystem extends AbstractUpdatableSystem {
 
         gobs.forEach(gob -> gob.forEachComponentDo(PlayerInputComponent.class, pi ->
                 gob.forEachComponentDo(WeaponSelectionComponent.class, ws -> {
-                    if (InputHelper.isKeyPressed(Input.Keys.SHIFT_LEFT)) {
+                    if (InputHelper.isKeyJustPressed(Input.Keys.SHIFT_LEFT)) {
                         ws.selectedIndex += 1;
                     }
                 }))
