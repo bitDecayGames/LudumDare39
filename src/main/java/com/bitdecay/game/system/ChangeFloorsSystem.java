@@ -27,7 +27,7 @@ public class ChangeFloorsSystem extends AbstractForEachUpdatableSystem {
                     MyGameObject trapDoor = MyGameObjectFromConf.objectFromConf("trapDoor", 0, 0);
                     trapDoor.addComponent(new GobRefComponent(gob));
                     trapDoor.addComponent(new NextFloorComponent(floor.next));
-                    room.getGameObjects().add(trapDoor);
+                    room.getGameObjects().addAfter(trapDoor, gob);
                 }
             });
         });
