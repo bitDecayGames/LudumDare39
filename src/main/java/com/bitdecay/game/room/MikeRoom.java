@@ -23,8 +23,8 @@ public class MikeRoom extends AbstractRoom {
         new CameraUpdateSystem(this);
         new RespawnSystem(this, Integer.MIN_VALUE, Integer.MAX_VALUE, -1000, Integer.MAX_VALUE);
         new DespawnSystem(this, Integer.MIN_VALUE, Integer.MAX_VALUE, -1000, Integer.MAX_VALUE);
-        new ShapeDrawSystem(this);
         new DrawSystem(this);
+        new ShapeDrawSystem(this);
         new RemovalSystem(this);
         new CollisionSystem(this);
         new ManifoldResolutionSystem(this);
@@ -49,8 +49,8 @@ public class MikeRoom extends AbstractRoom {
         gobs.add(MyGameObjectFromConf.objectFromConf("WestBoundary", 0, 0));
         gobs.add(MyGameObjectFromConf.objectFromConf("SouthBoundary", 0, 0));
         gobs.add(MyGameObjectFromConf.objectFromConf("EastBoundary", 0, 0));
-        gobs.add(MyGameObjectFactory.objectFromConf("Player", 0, 0));
         gobs.add(MyGameObjectFactory.objectFromConf("floor10", 0, 0));
+        gobs.add(MyGameObjectFactory.objectFromConf("Player", 0, 0));
         // this is required to be at the end here so that the systems have the latest gobs
         systemManager.cleanup();
     }
