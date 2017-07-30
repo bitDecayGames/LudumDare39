@@ -56,9 +56,11 @@ public class CreditsScreen implements Screen {
 
         lblTitle = new Label(" Credits", skin);
         lblTitle.setFontScale(10);
+        lblTitle.setY(-175);
+        lblTitle.setX(50);
         lblTitle.setFillParent(true);
         lblTitle.setAlignment(Align.top, Align.left);
-        lblTitle.setColor(Color.SKY);
+        lblTitle.setColor(Color.GOLDENROD);
 
         lblBack = new Label("Press esc/B to go back", skin);
         lblBack.setFontScale(2);
@@ -71,8 +73,8 @@ public class CreditsScreen implements Screen {
         // ///////////////////////////////////////////////
         StringBuilder creditsStr = new StringBuilder();
         addCreditTitleAndNames(creditsStr, "Programming: ", "credits.developers");
-        addCreditTitleAndNames(creditsStr, "Art: ", "credits.artists");
-        addCreditTitleAndNames(creditsStr, "Sound: ", "credits.sound");
+        addCreditTitleAndNames(creditsStr, "Art and Animation: ", "credits.artists");
+        addCreditTitleAndNames(creditsStr, "Music and Sound: ", "credits.sound");
         addCreditTitleAndNames(creditsStr, "", "credits.external");
 
         lblCredits = new Label(creditsStr.toString(),
