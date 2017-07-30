@@ -46,7 +46,9 @@ public class CollisionUtils {
             float amount = Intersector.intersectSegmentCircleDisplace(otherLine.start, otherLine.end, new Vector2(refCircle.x, refCircle.y), refCircle.radius, direction);
             if (amount != Float.POSITIVE_INFINITY) {
 //                direction.scl(-1); // the direction is original the amount the LINE has to move. We wan't to move the circle.
-                return new Manifold(refCircle.radius - amount, direction.angle());
+                return new Manifold(refCircle.radius - amount, otherLine.normal.angle());
+            } else if(otherLine.start.cpy().add(otherLine.normal).dst(refPos) > otherLine.start.cpy().sub(otherLine.normal).dst(refPos)){
+                return new Manifold(otherLine.normal.len(), otherLine.normal.angle());
             }
         }
         return null;

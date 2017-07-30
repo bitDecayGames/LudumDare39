@@ -10,10 +10,12 @@ import com.typesafe.config.Config;
 public class Line implements Shape2D {
     public Vector2 start;
     public Vector2 end;
+    public Vector2 normal;
 
-    public Line(Vector2 start, Vector2 end) {
+    public Line(Vector2 start, Vector2 end, Vector2 normal) {
         this.start = start;
         this.end = end;
+        this.normal = normal;
     }
 
     public Line(Config conf) {
@@ -24,6 +26,10 @@ public class Line implements Shape2D {
         end = new Vector2(
                 (float)conf.getDouble("x2"),
                 (float)conf.getDouble("y2")
+        );
+        normal = new Vector2(
+                (float)conf.getDouble("normalX"),
+                (float)conf.getDouble("normalY")
         );
     }
 }
