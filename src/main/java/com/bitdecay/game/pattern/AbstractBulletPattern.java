@@ -1,14 +1,17 @@
 package com.bitdecay.game.pattern;
 
 import com.badlogic.gdx.math.Vector2;
-import com.bitdecay.game.component.*;
+import com.bitdecay.game.component.ShootComponent;
+import com.bitdecay.game.component.SpeedComponent;
+import com.bitdecay.game.component.VelocityComponent;
+import com.bitdecay.game.component.WeaponComponent;
 import com.bitdecay.game.gameobject.MyGameObject;
 import com.bitdecay.game.gameobject.MyGameObjectFromConf;
 
 import java.util.List;
 
 public abstract class AbstractBulletPattern {
-    public abstract List<MyGameObject> generateBulletPattern(PositionComponent pos, ShootComponent shoot, WeaponComponent weapon);
+    public abstract List<MyGameObject> generateBulletPattern(Vector2 pos, ShootComponent shoot, WeaponComponent weapon);
 
     protected MyGameObject createBullet(String bulletName, float x, float y, Vector2 direction){
         MyGameObject bullet = MyGameObjectFromConf.objectFromConf(bulletName, x, y);
