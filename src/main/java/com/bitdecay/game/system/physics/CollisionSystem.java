@@ -58,6 +58,14 @@ public class CollisionSystem extends AbstractUpdatableSystem {
                             if (gobOutter.hasComponent(PlayerInputComponent.class)) EventReactor.fireEvent(new PlayerHurtEvent(gobInner));
                         }
                     });
+                    gobOutter.getComponent(SingleCollisionComponent.class).ifPresent(c -> {
+                        gobOutter.addComponent(new DeadComponent());
+                        gobOutter.addComponent(new RemoveNowComponent());
+                    });
+                    gobInner.getComponent(SingleCollisionComponent.class).ifPresent(c -> {
+                        gobInner.addComponent(new DeadComponent());
+                        gobInner.addComponent(new RemoveNowComponent());
+                    });
                 }
             });
         });
