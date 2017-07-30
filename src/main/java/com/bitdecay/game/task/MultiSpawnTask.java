@@ -23,7 +23,7 @@ public class MultiSpawnTask extends AbstractTask {
     List<MyGameObject> myObjects = new ArrayList<>();
 
     public MultiSpawnTask(Config conf) {
-        timeToWait = (float) conf.getDouble("time");
+        timeToWait = conf.hasPath("time") ? (float) conf.getDouble("time") : 0;
         gameObjectNameToSpawn = conf.getString("gob");
         MyGameObjectFromConf.objectFromConf(gameObjectNameToSpawn, 0, 0); // run this at initialization to verify that the conf is clean
         x = (float) conf.getDouble("x");
@@ -53,5 +53,7 @@ public class MultiSpawnTask extends AbstractTask {
     }
 
     @Override
-    public boolean isDone(AbstractRoom room) { return myObjects.size() <= 0; }
+    public boolean isDone(AbstractRoom room) {
+        return myObjects.stream().filter(gob -> !gob.hasComponent(DeadComponent.class)).count() == 0;
+    }
 }
