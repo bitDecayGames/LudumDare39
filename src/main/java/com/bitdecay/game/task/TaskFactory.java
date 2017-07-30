@@ -18,6 +18,8 @@ public class TaskFactory {
                 return new BoundarySetupTask(conf);
             case "Sequence":
                 return new TaskSequence(conf);
+            case "DownTheLine":
+                return new DownTheLineSpawnTask(conf);
             default:
                 throw new RuntimeException("Could not find Task named: " + name);
         }

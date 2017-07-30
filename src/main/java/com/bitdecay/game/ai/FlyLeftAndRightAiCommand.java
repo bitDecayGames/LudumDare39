@@ -6,16 +6,14 @@ import com.bitdecay.game.component.SpeedComponent;
 import com.bitdecay.game.component.VelocityComponent;
 import com.bitdecay.game.gameobject.MyGameObject;
 
-public class ChasePlayerAiCommand implements IAiCommand {
+public class FlyLeftAndRightAiCommand implements IAiCommand {
     @Override
     public void start(MyGameObject self, Vector2 playerPos) {}
 
     @Override
     public void update(float delta, MyGameObject self, Vector2 playerPos) {
-        self.forEach(PositionComponent.class, pos ->
-                self.forEach(VelocityComponent.class, vel ->
-                        self.forEach(SpeedComponent.class, speed -> {
-                            vel.set(playerPos.cpy().sub(pos.x, pos.y).nor().scl(speed.speed));
-                        })));
+        self.forEach(PositionComponent.class, pos -> self.forEach(VelocityComponent.class, vel -> self.forEach(SpeedComponent.class, speed -> {
+            vel.set(vel.x + (0-pos.x)*speed.speed, 0);
+        })));
     }
 }

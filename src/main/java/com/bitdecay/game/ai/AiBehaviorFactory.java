@@ -11,6 +11,22 @@ public class AiBehaviorFactory {
         switch(behavior){
             case "TiredChase":
                 return new RotatingAiBehavior(1 + rnd.nextFloat(), Arrays.asList(new ChasePlayerAiCommand(), new WaitAiCommand()));
+            case "AimAndCharge":
+                return new RotatingAiBehavior(0.5f + rnd.nextFloat(), Arrays.asList(new ChasePlayerAiCommand(), new WaitAiCommand(), new ChargeAiCommand(7)));
+            case "ClockwiseWallCrawler":
+                return new SimpleAiBehavior(new CrawlOnWallAiCommand(1));
+            case "CounterClockwiseWallCrawler":
+                return new SimpleAiBehavior(new CrawlOnWallAiCommand(-1));
+            case "ClockwiseCircling":
+                return new SimpleAiBehavior(new CircleTowardPlayerAiCommand(1));
+            case "CounterClockwiseCircling":
+                return new SimpleAiBehavior(new CircleTowardPlayerAiCommand(-1));
+            case "RandomCircling":
+                return new SimpleAiBehavior(new CircleTowardPlayerAiCommand(rnd.nextFloat() * 2f - 1f > 0 ? 1 : -1));
+            case "FlyUpAndDown":
+                return new SimpleAiBehavior(new FlyUpAndDownAiCommand());
+            case "FlyLeftAndRight":
+                return new SimpleAiBehavior(new FlyLeftAndRightAiCommand());
             default: throw new RuntimeException("Could not find an Ai Behavior called: " + behavior);
         }
     }
