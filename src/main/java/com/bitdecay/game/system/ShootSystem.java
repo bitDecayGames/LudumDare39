@@ -3,7 +3,6 @@ package com.bitdecay.game.system;
 import com.bitdecay.game.component.PositionComponent;
 import com.bitdecay.game.component.ShootComponent;
 import com.bitdecay.game.component.WeaponComponent;
-import com.bitdecay.game.component.WeaponSelectionComponent;
 import com.bitdecay.game.event.EventReactor;
 import com.bitdecay.game.event.MachineGunFireEvent;
 import com.bitdecay.game.event.ReloadShotgunEvent;
@@ -11,6 +10,7 @@ import com.bitdecay.game.event.ShotgunFireEvent;
 import com.bitdecay.game.gameobject.MyGameObject;
 import com.bitdecay.game.room.AbstractRoom;
 import com.bitdecay.game.system.abstracted.AbstractForEachUpdatableSystem;
+import com.bitdecay.game.weapon.WeaponUtils;
 
 import java.util.List;
 
@@ -28,11 +28,8 @@ public class ShootSystem extends AbstractForEachUpdatableSystem {
     protected void forEach(float delta, MyGameObject gob) {
         PositionComponent pos = gob.getComponent(PositionComponent.class).get();
         ShootComponent shoot = gob.getComponent(ShootComponent.class).get();
-        WeaponSelectionComponent weaponSelection = gob.getComponent(WeaponSelectionComponent.class).get();
-        int weaponCount = gob.getComponentCount(WeaponComponent.class);
 
-        int selectedWeaponIndex = weaponSelection.selectedIndex % weaponCount;
-        WeaponComponent weapon = (WeaponComponent) gob.getComponentByIndex(WeaponComponent.class, selectedWeaponIndex).get();
+        WeaponComponent weapon = WeaponUtils.getSelectedWeaponComponent(gob);
 
         // TODO: do some logic to only shoot the weapon at the correct speed and don't shoot if there are more than the max bullets
         if ((shoot.x != 0 || shoot.y != 0) && weapon.cooldown <= 0 && (weapon.unlimitedAmmo || weapon.ammo > 0)){

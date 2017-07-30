@@ -40,6 +40,7 @@ public class MikeRoom extends AbstractRoom {
         new ChangeFloorsSystem(this);
         new AimingAnimationSystem(this);
         new MovingAnimationSystem(this);
+        new WeaponAnimationSystem(this);
         new SoundSystem(this);
         new AiSystem(this);
 
