@@ -1,7 +1,6 @@
 package com.bitdecay.game.pattern;
 
 import com.badlogic.gdx.math.Vector2;
-import com.bitdecay.game.component.PositionComponent;
 import com.bitdecay.game.component.ShootComponent;
 import com.bitdecay.game.component.VelocityComponent;
 import com.bitdecay.game.component.WeaponComponent;
@@ -16,7 +15,7 @@ public class ScatterShotBulletPattern extends AbstractBulletPattern {
     private Random rnd = new Random();
 
     @Override
-    public List<MyGameObject> generateBulletPattern(PositionComponent pos, ShootComponent shoot, WeaponComponent weapon){
+    public List<MyGameObject> generateBulletPattern(Vector2 pos, ShootComponent shoot, WeaponComponent weapon){
         Vector2 shotForward = shoot.toVector2();
         int numberOfBullets = 20 + (int) (rnd.nextFloat() * 10f);
         List<MyGameObject> bullets = new ArrayList<>();
