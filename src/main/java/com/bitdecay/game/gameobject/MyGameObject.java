@@ -2,7 +2,6 @@ package com.bitdecay.game.gameobject;
 
 import com.bitdecay.game.component.AbstractComponent;
 import com.bitdecay.game.trait.ICleanup;
-import jdk.nashorn.internal.runtime.regexp.joni.Option;
 
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
@@ -22,6 +21,13 @@ public class MyGameObject implements ICleanup {
     private List<AbstractComponent> components = new ArrayList<>();
     private List<AbstractComponent> componentsToAdd = new ArrayList<>();
     private List<AbstractComponent> componentsToRemove = new ArrayList<>();
+
+    public List<AbstractComponent> getAllComponents() {
+        ArrayList<AbstractComponent> all = new ArrayList<>();
+        all.addAll(components);
+        all.addAll(componentsToAdd);
+        return all;
+    }
 
     public boolean hasComponents(Class<?>... componentClasses){
         return ! Arrays.stream(componentClasses).filter(componentClass -> ! components.stream().filter(componentClass::isInstance).findFirst().isPresent()).findFirst().isPresent();
@@ -82,6 +88,11 @@ public class MyGameObject implements ICleanup {
         } catch (Exception e){
             throw new RuntimeException("Expected there to be an empty constructor.", e);
         }
+    }
+
+    public void addComponents(List<AbstractComponent> components) {
+        dirty = true;
+        componentsToAdd.addAll(components);
     }
 
     /**
