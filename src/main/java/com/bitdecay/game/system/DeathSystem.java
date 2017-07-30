@@ -2,8 +2,8 @@ package com.bitdecay.game.system;
 
 import com.bitdecay.game.Launcher;
 import com.bitdecay.game.component.*;
-import com.bitdecay.game.event.AmmoPopupEvent;
 import com.bitdecay.game.event.EventReactor;
+import com.bitdecay.game.event.PlayerKillEvent;
 import com.bitdecay.game.gameobject.MyGameObject;
 import com.bitdecay.game.room.AbstractRoom;
 import com.bitdecay.game.screen.GameOverScreen;
@@ -27,7 +27,7 @@ public class DeathSystem extends AbstractForEachUpdatableSystem {
                 gob.addComponent(new DeadComponent());
 
                 gob.forEach(PlayerInputComponent.class, player -> room.setScreen(new GameOverScreen(Launcher.GAME)));
-                gob.forEach(AiComponent.class, ai -> gob.forEach(PositionComponent.class, pos -> EventReactor.fireEvent(new AmmoPopupEvent(pos.toVector2()))));
+                gob.forEach(AiComponent.class, ai -> gob.forEach(PositionComponent.class, pos -> EventReactor.fireEvent(new PlayerKillEvent(pos.toVector2()))));
             }
         });
     }
