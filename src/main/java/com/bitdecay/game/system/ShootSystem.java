@@ -31,7 +31,6 @@ public class ShootSystem extends AbstractForEachUpdatableSystem {
 
         WeaponComponent weapon = WeaponUtils.getSelectedWeaponComponent(gob);
 
-        // TODO: do some logic to only shoot the weapon at the correct speed and don't shoot if there are more than the max bullets
         if ((shoot.x != 0 || shoot.y != 0) && weapon.cooldown <= 0 && (weapon.unlimitedAmmo || weapon.ammo > 0)){
             List<MyGameObject> bullets = weapon.pattern.generateBulletPattern(pos, shoot, weapon);
             bullets.forEach(bullet -> {

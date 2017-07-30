@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.math.Vector2;
-import com.bitdecay.game.Launcher;
 import com.bitdecay.game.MyGame;
 import com.bitdecay.game.room.MikeRoom;
 import com.bitdecay.game.trait.ICanSetRoom;
@@ -27,15 +26,13 @@ public class GameScreen implements Screen, IHasScreenSize, ICanSetScreen, ICanSe
         setRoom(new MikeRoom(this));
     }
     public GameScreen(MyGame game, com.bitdecay.game.room.AbstractRoom room){
+        SoundLibrary.stopAllMusic();
         this.game = game;
         setRoom(room);
     }
 
     @Override
-    public void show() {
-        SoundLibrary.stopMusic(Launcher.conf.getString("splash.music"));
-        SoundLibrary.loopMusic(Launcher.conf.getString("game.music"));
-    }
+    public void show() {}
 
     @Override
     public void render(float delta) {

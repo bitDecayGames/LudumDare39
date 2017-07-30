@@ -11,7 +11,9 @@ import com.typesafe.config.ConfigObject;
 import org.apache.log4j.Logger;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.function.BiConsumer;
+import java.util.stream.Collectors;
 
 /**
  * SoundLibrary is now fully built and configured based on the location of files and the sounds.conf file.  Look at the /resources/conf/sounds.conf file to figure out how to change the volume for each individual sound effect and music.  If you don't enter a value into sounds.conf, a default value will be used.
@@ -31,9 +33,9 @@ public class SoundLibrary {
 
     static {
         // loop through the defined sounds and adjust their volume
-        loadSounds("sounds.fx", defaultFxVolume, (name, volume) -> sounds.put(name, new SoundEffect(volume)));
+        loadSounds("sounds.fx", defaultFxVolume, (name, volume) -> sounds.put(name, new SoundEffect(name, volume)));
         // loop through the defined musics and adjust their volume
-        loadSounds("sounds.music", defaultMusicVolume, (name, volume) -> musics.put(name, new MusicEffect(volume)));
+        loadSounds("sounds.music", defaultMusicVolume, (name, volume) -> musics.put(name, new MusicEffect(name, volume)));
     }
 
     private static void loadSounds(String confLocation, float defaultVolume, BiConsumer<String, Float> func){
@@ -87,15 +89,22 @@ public class SoundLibrary {
     }
 
     public static synchronized Music playMusic(String name) {
-        return getMusic(name).play();
+        return getMusic(name, null).play();
     }
 
+    public static synchronized Music playMusic(String name, Music.OnCompletionListener onCompletion) {
+        return getMusic(name, onCompletion).play();
+    }
     public static synchronized Music loopMusic(String name) {
-        return getMusic(name).loop();
+        return getMusic(name, null).loop();
+    }
+
+    public static synchronized Music loopMusic(String name, Music.OnCompletionListener onCompletion) {
+        return getMusic(name, onCompletion).loop();
     }
 
 
-    private static MusicEffect getMusic(String name) {
+    private static MusicEffect getMusic(String name, Music.OnCompletionListener onCompletion) {
         try {
             MusicEffect music;
 
@@ -106,9 +115,11 @@ public class SoundLibrary {
                 if (!musicFile.exists()) musicFile = Gdx.files.classpath("sound/music/" + name + ".wav");
                 if (!musicFile.exists()) musicFile = Gdx.files.classpath("sound/music/" + name + ".ogg");
                 music.music = Gdx.audio.newMusic(musicFile);
+                if (onCompletion != null) music.music.setOnCompletionListener(onCompletion);
                 musics.put(name, music);
             }
 
+            log.info("Getting music: " + name);
             return music;
         } catch (Exception e){
             throw new RuntimeException("Could not get music: " + name, e);
@@ -116,20 +127,32 @@ public class SoundLibrary {
     }
 
     public static void stopMusic(String name) {
-        getMusic(name).music.stop();
+        getMusic(name, null).music.stop();
     }
 
+    public static void stopAllMusic(){
+        musics.values().forEach(m -> {
+            if (m.music != null && m.music.isPlaying()) m.music.stop();
+        });
+    }
+
+    public static List<MusicEffect> getAllPlayingMusic(){
+        return musics.values().stream().filter(m -> m.music != null && m.music.isPlaying()).collect(Collectors.toList());
+    }
 
     private static class SoundEffect {
+        public String name;
         public Sound sound;
         public float volume;
 
-        public SoundEffect(Sound sound, float volume) {
+        public SoundEffect(String name, Sound sound, float volume) {
+            this.name = name;
             this.sound = sound;
             this.volume = volume;
         }
 
-        public SoundEffect(float volume) {
+        public SoundEffect(String name, float volume) {
+            this.name = name;
             this.volume = volume;
         }
 
@@ -149,15 +172,18 @@ public class SoundLibrary {
     }
 
     private static class MusicEffect {
+        public String name;
         public Music music;
         public float volume;
 
-        public MusicEffect(Music music, float volume) {
+        public MusicEffect(String name, Music music, float volume) {
+            this.name = name;
             this.music = music;
             this.volume = volume;
         }
 
-        public MusicEffect(float volume) {
+        public MusicEffect(String name, float volume) {
+            this.name = name;
             this.volume = volume;
         }
 
@@ -175,7 +201,7 @@ public class SoundLibrary {
         }
 
         public String toString(){
-            return "Volume=" + this.volume;
+            return "[name:" + name + ",vol:" + this.volume + ",pos:" + this.music.getPosition() + "]";
         }
     }
 }
