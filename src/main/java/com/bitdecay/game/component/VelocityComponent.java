@@ -28,7 +28,23 @@ public class VelocityComponent extends AbstractComponent {
         return this;
     }
 
-    public VelocityComponent scale(float scalar){
+    public VelocityComponent setAndIntended(float x, float y){
+        this.x = x;
+        this.y = y;
+        lastIntended.x = x;
+        lastIntended.y = y;
+        return this;
+    }
+
+    public VelocityComponent setAndIntended(Vector2 v){
+        this.x = v.x;
+        this.y = v.y;
+        lastIntended.x = v.x;
+        lastIntended.y = v.y;
+        return this;
+    }
+
+    public VelocityComponent scale(float scalar) {
         this.x *= scalar;
         this.y *= scalar;
         return this;

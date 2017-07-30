@@ -21,7 +21,7 @@ public class CircleTowardPlayerAiCommand implements IAiCommand {
     @Override
     public void update(float delta, MyGameObject self, Vector2 playerPos) {
         self.forEach(PositionComponent.class, pos -> self.forEach(VelocityComponent.class, vel -> self.forEach(SpeedComponent.class, speed -> {
-            vel.set(VectorMath.rotatePointByDegreesAroundZero(playerPos.cpy().sub(pos.x, pos.y).nor(), 70 * rotationDirection).scl(speed.speed));
+            vel.setAndIntended(VectorMath.rotatePointByDegreesAroundZero(playerPos.cpy().sub(pos.x, pos.y).nor(), 70 * rotationDirection).scl(speed.speed));
         })));
     }
 }

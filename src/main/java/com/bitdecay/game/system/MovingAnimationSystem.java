@@ -52,7 +52,6 @@ public class MovingAnimationSystem extends AbstractForEachUpdatableSystem {
     protected boolean validateGob(MyGameObject gob) {
         return gob.hasComponents(
                 MovingAnimationComponent.class,
-                ShootComponent.class,
                 VelocityComponent.class
         );
     }

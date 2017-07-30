@@ -2,6 +2,7 @@ package com.bitdecay.game.animation;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.Array;
 import com.bitdecay.game.Launcher;
 import com.bitdecay.game.MyGame;
 import com.bytebreakstudios.animagic.animation.FrameRate;
@@ -41,10 +42,14 @@ public class AnimationUtils {
                 List<String> framePaths = dirConf.getStringList("frames");
                 ArrayList<TextureRegion> regions = new ArrayList<>();
                 for (String framePath : framePaths) {
-                    for (AnimagicTextureRegion animagicTextureRegion : MyGame.ATLAS.findRegions(framePath)) {
+                    Array<AnimagicTextureRegion> animTextureRegions = MyGame.ATLAS.findRegions(framePath);
+                    if (animTextureRegions.size == 0) throw new RuntimeException("Got regions of 0 size with framePath: " + framePath);
+                    for (AnimagicTextureRegion animagicTextureRegion : animTextureRegions) {
+                        if (animagicTextureRegion.getTexture() == null) throw new RuntimeException("Got null texture in region: " + framePath);
                         regions.add(animagicTextureRegion);
                     }
                 }
+                if (regions.size() == 0) throw new RuntimeException("Got regions of 0 size with framePaths: " + framePaths);
                 Animation animation = new Animation("name", com.bytebreakstudios.animagic.animation.Animation.AnimationPlayState.REPEAT, FrameRate.perFrame(0.1f), regions.toArray(new TextureRegion[regions.size()]));
                 directionMap.put(direction, animation);
             }

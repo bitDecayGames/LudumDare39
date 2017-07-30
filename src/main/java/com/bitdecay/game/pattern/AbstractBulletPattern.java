@@ -13,7 +13,7 @@ public abstract class AbstractBulletPattern {
     protected MyGameObject createBullet(String bulletName, float x, float y, Vector2 direction){
         MyGameObject bullet = MyGameObjectFromConf.objectFromConf(bulletName, x, y);
         bullet.forEach(VelocityComponent.class, velocity -> bullet.forEach(SpeedComponent.class, speed -> {
-            velocity.set(direction.cpy().nor().scl(speed.speed));
+            velocity.setAndIntended(direction.cpy().nor().scl(speed.speed));
 //            velocity.x = direction.x * speed.speed;
 //            velocity.y = direction.y * speed.speed;
         }));
