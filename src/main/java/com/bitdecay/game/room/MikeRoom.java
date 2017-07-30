@@ -34,6 +34,7 @@ public class MikeRoom extends AbstractRoom {
         new KeyboardWeaponChangeSystem(this);
         new ShootSystem(this);
         new DamageSystem(this);
+        new ExplodeSystem(this);
         new DeathSystem(this);
         new VelocitySystem(this);
         new FloorLoadSystem(this);

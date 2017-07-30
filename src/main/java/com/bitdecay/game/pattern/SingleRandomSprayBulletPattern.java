@@ -1,9 +1,10 @@
 package com.bitdecay.game.pattern;
 
 import com.badlogic.gdx.math.Vector2;
-import com.bitdecay.game.component.*;
+import com.bitdecay.game.component.PositionComponent;
+import com.bitdecay.game.component.ShootComponent;
+import com.bitdecay.game.component.WeaponComponent;
 import com.bitdecay.game.gameobject.MyGameObject;
-import com.bitdecay.game.gameobject.MyGameObjectFromConf;
 import com.bitdecay.game.util.VectorMath;
 
 import java.util.Collections;
@@ -24,11 +25,6 @@ public class SingleRandomSprayBulletPattern extends AbstractBulletPattern {
     public List<MyGameObject> generateBulletPattern(PositionComponent pos, ShootComponent shoot, WeaponComponent weapon){
         Vector2 direction = VectorMath.rotatePointByDegreesAroundZero(shoot.toVector2(), (0.5f - rnd.nextFloat()) * sprayDegrees);
 
-        MyGameObject bullet = MyGameObjectFromConf.objectFromConf(weapon.bullet, pos.x, pos.y);
-        bullet.forEach(VelocityComponent.class, velocity -> bullet.forEach(SpeedComponent.class, speed -> {
-            velocity.x = direction.x * speed.speed;
-            velocity.y = direction.y * speed.speed;
-        }));
-        return Collections.singletonList(bullet);
+        return Collections.singletonList(createBullet(weapon.bullet, pos.x, pos.y, direction));
     }
 }
