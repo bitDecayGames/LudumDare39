@@ -25,7 +25,7 @@ public class AimingAnimationSystem extends AbstractForEachUpdatableSystem {
             gob.forEachComponentDo(ShootComponent.class, shoot -> {
                 gob.forEachComponentDo(AimingAnimationComponent.class, animation -> {
                     AnimationState state = AnimationUtils.getStateFromVelocity(velocity.toVector2());
-                    AnimationDirection direction = AnimationUtils.getDirectionFromInfo(shoot.toVector2());
+                    AnimationDirection direction = AnimationUtils.getDirectionFromInfo(shoot.lastIntended);
 
                     Animation chosenAnimation = animation.animations.get(state).get(direction);
                     animation.activeAnimation = chosenAnimation;
