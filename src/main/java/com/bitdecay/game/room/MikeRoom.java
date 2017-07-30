@@ -1,6 +1,7 @@
 package com.bitdecay.game.room;
 
 
+import com.bitdecay.game.Launcher;
 import com.bitdecay.game.gameobject.MyGameObjectFactory;
 import com.bitdecay.game.gameobject.MyGameObjectFromConf;
 import com.bitdecay.game.screen.GameScreen;
@@ -25,7 +26,7 @@ public class MikeRoom extends AbstractRoom {
         new RespawnSystem(this, Integer.MIN_VALUE, Integer.MAX_VALUE, -1000, Integer.MAX_VALUE);
         new DespawnSystem(this, Integer.MIN_VALUE, Integer.MAX_VALUE, -1000, Integer.MAX_VALUE);
         new DrawSystem(this);
-        new ShapeDrawSystem(this);
+//        new ShapeDrawSystem(this);
         new RemovalSystem(this);
         new CollisionSystem(this);
         new TrapDoorSystem(this);
@@ -60,7 +61,7 @@ public class MikeRoom extends AbstractRoom {
         gobs.add(MyGameObjectFromConf.objectFromConf("SouthBulletBoundary", 0, 0));
         gobs.add(MyGameObjectFromConf.objectFromConf("EastMoveBoundary", 0, 0));
         gobs.add(MyGameObjectFromConf.objectFromConf("EastBulletBoundary", 0, 0));
-        gobs.add(MyGameObjectFactory.objectFromConf("floor10", 0, 0));
+        gobs.add(MyGameObjectFactory.objectFromConf(Launcher.conf.getString("startingFloor"), 0, 0));
         gobs.add(MyGameObjectFactory.objectFromConf("Player", 0, 0));
         // this is required to be at the end here so that the systems have the latest gobs
         systemManager.cleanup();
