@@ -68,6 +68,6 @@ public class GameOverScreen implements Screen {
     }
 
     private void nextScreen() {
-        game.setScreen(new MainMenuScreen(game));
+        game.setScreen(new CreditsScreen(game));
     }
 }

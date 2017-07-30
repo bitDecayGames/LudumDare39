@@ -81,7 +81,7 @@ public class CreditsScreen implements Screen {
         lblCredits = new Label(creditsStr.toString(),
                 skin);
         lblCredits.setFontScale(Launcher.conf.getInt("credits.fontSize"));
-        lblCredits.setBounds(0, -Gdx.graphics.getHeight(), Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        lblCredits.setBounds(0, -Gdx.graphics.getHeight()/1.9f, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         lblCredits.setAlignment(Align.center, Align.bottom);
         lblCredits.setColor(Color.WHITE);
 
