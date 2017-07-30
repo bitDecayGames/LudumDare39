@@ -1,10 +1,11 @@
 package com.bitdecay.game.system;
 
 import com.bitdecay.game.component.FloorComponent;
+import com.bitdecay.game.component.GobRefComponent;
+import com.bitdecay.game.component.NextFloorComponent;
 import com.bitdecay.game.component.ScheduleComponent;
-import com.bitdecay.game.component.StaticImageComponent;
 import com.bitdecay.game.gameobject.MyGameObject;
-import com.bitdecay.game.gameobject.MyGameObjectFactory;
+import com.bitdecay.game.gameobject.MyGameObjectFromConf;
 import com.bitdecay.game.room.AbstractRoom;
 import com.bitdecay.game.system.abstracted.AbstractForEachUpdatableSystem;
 
@@ -22,11 +23,13 @@ public class ChangeFloorsSystem extends AbstractForEachUpdatableSystem {
             gob.forEachComponentDo(ScheduleComponent.class, schedule -> {
                 if (schedule.isComplete) {
                     // change floors automatically
-                    System.out.println("Changing floors to " + floor.next);
-                    gob.removeComponent(FloorComponent.class);
+                    System.out.println("TRIGGERING TRAP DOOR");
                     gob.removeComponent(ScheduleComponent.class);
-                    gob.removeComponent(StaticImageComponent.class);
-                    gob.addComponent(MyGameObjectFactory.objectFromConf(floor.next, 0, 0).getComponent(FloorComponent.class).get());
+                    System.out.println("Changing floors to " + floor.next);
+                    MyGameObject trapDoor = MyGameObjectFromConf.objectFromConf("trapDoor", 0, 0);
+                    trapDoor.addComponent(new GobRefComponent(gob));
+                    trapDoor.addComponent(new NextFloorComponent(floor.next));
+                    room.getGameObjects().add(trapDoor);
                 }
             });
         });

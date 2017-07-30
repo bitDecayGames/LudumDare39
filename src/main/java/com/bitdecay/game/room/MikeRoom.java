@@ -28,6 +28,7 @@ public class MikeRoom extends AbstractRoom {
         new ShapeDrawSystem(this);
         new RemovalSystem(this);
         new CollisionSystem(this);
+        new TrapDoorSystem(this);
         new ManifoldResolutionSystem(this);
         new ScheduleSystem(this);
         new KeyboardMoveSystem(this);

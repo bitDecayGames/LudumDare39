@@ -45,6 +45,8 @@ public class CollisionSystem extends AbstractUpdatableSystem {
 
                 Manifold manifold = CollisionUtils.collide(outterCollider.body, outterPosition.toVector2(), innerCollider.body, innerPosition.toVector2());
                 if (manifold != null) {
+                    manifold.ref = gobOutter;
+                    manifold.other = gobInner;
                     outterCollider.manifolds.add(manifold);
                     if (gobOutter.hasComponent(DamagerComponent.class) && gobInner.hasComponent(HealthComponent.class)) gobOutter.forEach(DamagerComponent.class, dmg -> {
                         if (dmg.targetGroups.size() == 0 || innerCollider.isPartOfGroups.stream().anyMatch(dmg.targetGroups::contains)) {
