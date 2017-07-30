@@ -39,6 +39,7 @@ public class MikeRoom extends AbstractRoom {
         new FloorLoadSystem(this);
         new ChangeFloorsSystem(this);
         new SoundSystem(this);
+        new AiSystem(this);
 
 
         gobs.add(MyGameObjectFromConf.objectFromConf("NorthBoundary", 0, 0));

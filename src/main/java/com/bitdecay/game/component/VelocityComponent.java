@@ -1,18 +1,10 @@
 package com.bitdecay.game.component;
 
 import com.badlogic.gdx.math.Vector2;
-import com.typesafe.config.Config;
 
 public class VelocityComponent extends AbstractComponent {
     public float x = 0;
     public float y = 0;
-
-    public VelocityComponent(){ }
-
-    public VelocityComponent(Config conf){
-        x = (float) conf.getDouble("x");
-        y = (float) conf.getDouble("y");
-    }
 
     /**
      * Immutable
@@ -23,4 +15,15 @@ public class VelocityComponent extends AbstractComponent {
     }
 
 
+    public VelocityComponent set(float x, float y){
+        this.x = x;
+        this.y = y;
+        return this;
+    }
+
+    public VelocityComponent set(Vector2 v){
+        this.x = v.x;
+        this.y = v.y;
+        return this;
+    }
 }
