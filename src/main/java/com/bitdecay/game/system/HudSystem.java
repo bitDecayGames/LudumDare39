@@ -23,6 +23,7 @@ public class HudSystem extends AbstractForEachUpdatableSystem {
     private Label lblAmmo;
     private Label lblGun;
     private Label lblHealth;
+    private Label lblFloor;
     private Stage stage = new Stage();
 
 
@@ -51,6 +52,15 @@ public class HudSystem extends AbstractForEachUpdatableSystem {
         lblHealth.setY(230);
         lblHealth.setColor(Color.RED);
 
+        lblFloor = new Label("Floor", skin);
+        lblFloor.setFontScale(1.5f);
+        lblFloor.setFillParent(true);
+        lblFloor.setX(0);
+        lblFloor.setY(263);
+        lblFloor.setColor(Color.BLUE);
+
+
+        stage.addActor(lblFloor);
         stage.addActor(lblHealth);
         stage.addActor(lblAmmo);
         stage.addActor(lblGun);
@@ -60,25 +70,33 @@ public class HudSystem extends AbstractForEachUpdatableSystem {
 
     @Override
     protected boolean validateGob(MyGameObject gob) {
-        return gob.hasComponents(HealthComponent.class, PlayerInputComponent.class, WeaponComponent.class);
+        return gob.hasComponents(HealthComponent.class, PlayerInputComponent.class, WeaponComponent.class) || gob.hasComponent(FloorComponent.class);
     }
 
     @Override
     protected void forEach(float delta, MyGameObject gob) {
-        HealthComponent health = gob.getComponent(HealthComponent.class).get();
-        WeaponComponent weapon = WeaponUtils.getSelectedWeaponComponent(gob);
 
-        String ammo;
-        if (weapon.unlimitedAmmo) {
-            ammo = "Unlimited";
+        if (gob.hasComponent(PlayerInputComponent.class)) {
+            // gob is the Player
+            HealthComponent health = gob.getComponent(HealthComponent.class).get();
+            WeaponComponent weapon = WeaponUtils.getSelectedWeaponComponent(gob);
+
+            String ammo;
+            if (weapon.unlimitedAmmo) {
+                ammo = "Unlimited";
+            } else {
+                ammo = Integer.toString(weapon.ammo);
+            }
+
+            lblAmmo.setText("Ammo: " + ammo);
+            lblGun.setText("Gun: " + weapon.weaponName);
+            lblHealth.setText("Heath: " + (int) health.hp + "/" + (int) health.maxHp);
         }
         else {
-            ammo = Integer.toString(weapon.ammo);
+            // gob is the floor
+            FloorComponent floor = gob.getComponent(FloorComponent.class).get();
+            lblFloor.setText(floor.displayName);
         }
-
-        lblAmmo.setText("Ammo: " + ammo);
-        lblGun.setText("Gun: " + weapon.weaponName);
-        lblHealth.setText("Heath: " + (int) health.hp + "/" + (int) health.maxHp);
 
         stage.act();
         stage.draw();
