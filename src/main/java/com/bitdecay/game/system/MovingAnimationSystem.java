@@ -22,27 +22,28 @@ public class MovingAnimationSystem extends AbstractForEachUpdatableSystem {
     @Override
     protected void forEach(float delta, MyGameObject gob) {
         gob.forEachComponentDo(VelocityComponent.class, velocity -> {
-            gob.forEachComponentDo(ShootComponent.class, shoot -> {
-                gob.forEachComponentDo(MovingAnimationComponent.class, animation -> {
-                    AnimationState state = AnimationUtils.getStateFromVelocity(velocity.toVector2());
-                    AnimationDirection moveDirection = AnimationUtils.getDirectionFromInfo(velocity.lastIntended);
+            gob.forEachComponentDo(MovingAnimationComponent.class, animation -> {
+                AnimationState state = AnimationUtils.getStateFromVelocity(velocity.toVector2());
+                AnimationDirection moveDirection = AnimationUtils.getDirectionFromInfo(velocity.lastIntended);
+
+                boolean flipped = false;
+                if (gob.hasComponents(ShootComponent.class)) {
+                    ShootComponent shoot = gob.getComponent(ShootComponent.class).get();
                     AnimationDirection shootDirection = AnimationUtils.getDirectionFromInfo(shoot.lastIntended);
 
-                    boolean flipped = AnimationDirection.moreThanNinetyOff(moveDirection, shootDirection);
-                    if (flipped) {
+                    if (AnimationDirection.moreThanNinetyOff(moveDirection, shootDirection)) {
                         moveDirection = AnimationDirection.flip(moveDirection);
                     }
+                }
+                Animation chosenAnimation = animation.animations.get(state).get(moveDirection);
+                animation.activeAnimation = chosenAnimation;
 
-                    Animation chosenAnimation = animation.animations.get(state).get(moveDirection);
-                    animation.activeAnimation = chosenAnimation;
+                if (flipped) {
+                    chosenAnimation.update(-delta);
+                } else {
+                    chosenAnimation.update(delta);
 
-                    if (flipped) {
-                        chosenAnimation.update(-delta);
-                    } else {
-                        chosenAnimation.update(delta);
-
-                    }
-                });
+                }
             });
         });
     }
@@ -51,7 +52,6 @@ public class MovingAnimationSystem extends AbstractForEachUpdatableSystem {
     protected boolean validateGob(MyGameObject gob) {
         return gob.hasComponents(
                 MovingAnimationComponent.class,
-                ShootComponent.class,
                 VelocityComponent.class
         );
     }

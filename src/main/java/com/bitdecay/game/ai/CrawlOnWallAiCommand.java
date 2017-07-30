@@ -48,16 +48,16 @@ public class CrawlOnWallAiCommand implements IAiCommand {
         float spd = Math.abs(speed.speed);
         switch(currentDirection){
             case 0:
-                vel.set(0, spd); // up
+                vel.setAndIntended(0, spd); // up
                 break;
             case 1:
-                vel.set(spd, 0); // right
+                vel.setAndIntended(spd, 0); // right
                 break;
             case 2:
-                vel.set(0, -spd); // down
+                vel.setAndIntended(0, -spd); // down
                 break;
             case 3:
-                vel.set(-spd, 0); // left
+                vel.setAndIntended(-spd, 0); // left
                 break;
         }
     }
