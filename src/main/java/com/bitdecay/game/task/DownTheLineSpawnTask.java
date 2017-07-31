@@ -74,5 +74,5 @@ public class DownTheLineSpawnTask extends AbstractTask {
     }
 
     @Override
-    public boolean isDone(AbstractRoom room) { return myObjects.size() <= 0; }
+    public boolean isDone(AbstractRoom room) { return secondsToCompleteCounter < 0 && myObjects.size() <= 0; }
 }
