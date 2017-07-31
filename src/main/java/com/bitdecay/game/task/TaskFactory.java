@@ -31,6 +31,8 @@ public class TaskFactory {
                 return new DownTheLineSpawnTask(conf);
             case "EnemyCount":
                 return new EnemyCountTask(conf);
+            case "List":
+                return new ListTask(conf);
             default:
                 throw new RuntimeException("Could not find Task named: " + name);
         }
