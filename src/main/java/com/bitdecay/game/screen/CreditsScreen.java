@@ -45,6 +45,8 @@ public class CreditsScreen implements Screen {
     public CreditsScreen(MyGame game) {
         this.game = game;
 
+        stage.setDebugAll(true);
+
         menuSelection = 0;
         downIsPressed = false;
         upIsPressed = false;
@@ -57,8 +59,8 @@ public class CreditsScreen implements Screen {
 
         lblTitle = new Label(" Credits", skin);
         lblTitle.setFontScale(10);
-        lblTitle.setY(-175);
-        lblTitle.setX(50);
+//        lblTitle.setY(-175);
+//        lblTitle.setX(50);
         lblTitle.setFillParent(true);
         lblTitle.setAlignment(Align.top, Align.left);
         lblTitle.setColor(Color.GOLDENROD);
