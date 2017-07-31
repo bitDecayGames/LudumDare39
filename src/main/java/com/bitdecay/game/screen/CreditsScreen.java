@@ -45,8 +45,6 @@ public class CreditsScreen implements Screen {
     public CreditsScreen(MyGame game) {
         this.game = game;
 
-        stage.setDebugAll(true);
-
         menuSelection = 0;
         downIsPressed = false;
         upIsPressed = false;
