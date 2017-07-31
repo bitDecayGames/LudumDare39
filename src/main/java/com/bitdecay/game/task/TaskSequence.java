@@ -34,7 +34,6 @@ public class TaskSequence extends AbstractTask {
     @Override
     public void update(float delta, AbstractRoom room) {
         if (taskList.size() > 0) {
-            System.out.println("Current task: " + currentTask);
             taskList.get(currentTask).update(delta, room);
         } else {
             return;

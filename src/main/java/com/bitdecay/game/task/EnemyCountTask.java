@@ -53,7 +53,6 @@ public class EnemyCountTask extends AbstractTask {
     @Override
     public boolean isDone(AbstractRoom room) {
         return taskList.stream().filter(t -> {
-            if (!t.isDone(room)) System.out.println("task is not done: " + t);
             return !t.isDone(room);
         }).count() == 0;
     }

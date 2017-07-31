@@ -57,8 +57,8 @@ public class CreditsScreen implements Screen {
 
         lblTitle = new Label(" Credits", skin);
         lblTitle.setFontScale(10);
-        lblTitle.setY(-175);
-        lblTitle.setX(50);
+//        lblTitle.setY(-175);
+//        lblTitle.setX(50);
         lblTitle.setFillParent(true);
         lblTitle.setAlignment(Align.top, Align.left);
         lblTitle.setColor(Color.GOLDENROD);
