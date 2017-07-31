@@ -1,3 +1,3 @@
-# {{Project Name}}
+# Action Jackson
 
-{{project description}}
+A top-down twin stick (twin... keyboard controls) shooter.
